@@ -4,9 +4,9 @@ export default {
   port: port,
   database: {
     DATABASE: 'hunter',
-    USERNAME: 'admin',
-    PASSWORD: 'passwd',
+    USERNAME: 'jimliu',
+    PASSWORD: '123456',
     PORT: '3306',
-    HOST: '192.168.19.57'
+    HOST: 'localhost'
   }
 }

@@ -37,7 +37,7 @@ let cookie = {
 // 配置session中间件
 app.use(session({
   key: 'USER_SID',
-  store: new MysqlStore(sessionMysqlConfig)
+  store: new MysqlStore(sessionMysqlConfig),
   cookie: cookie
 }))
 

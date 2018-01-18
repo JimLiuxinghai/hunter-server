@@ -1,7 +1,7 @@
 const mysql = require('mysql')
-const config = require('./../../config/env/config')
-const dbConfig = config.database
-
+const allConfig = require("./../../config/env/config")
+const dbConfig = allConfig.default.database
+console.log(dbConfig.HOST)
 const pool = mysql.createPool({
   host     :  dbConfig.HOST,
   user     :  dbConfig.USERNAME,
