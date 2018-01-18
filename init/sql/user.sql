@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2017-12-11 17:42:59
+Date: 2018-01-18 18:55:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,9 +21,10 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL COMMENT '登录邮箱',
   `username` varchar(255) DEFAULT NULL,
   `passwd` varchar(255) DEFAULT NULL,
   `userid` varchar(255) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
