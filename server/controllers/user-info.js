@@ -33,7 +33,6 @@ module.exports = {
       ctx.session.isLogin = true
       ctx.session.userName = userResult.username
       ctx.session.userid = userResult.userid
-      console.log(ctx.session, 'loginsession')
     } 
     ctx.body = result
   },

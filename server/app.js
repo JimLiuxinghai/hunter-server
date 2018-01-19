@@ -23,7 +23,7 @@ const sessionMysqlConfig= {
 //配置cookie
 
 let cookie = {
-  maxAge: 60*1000*60*24*30, // cookie有效时长
+  maxAge: 60 * 60 * 1000 * 24 * 30, // cookie有效时长
   expires: '',  // cookie失效时间
   path: '/', // 写cookie所在的路径
   domain: '', // 写cookie所在的域名

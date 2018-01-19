@@ -17,7 +17,7 @@ class HeaderNav extends React.Component {
           style={{ lineHeight: '64px' }}
         >
           <Menu.Item key="1"><a href="/">Home</a></Menu.Item>
-          <Menu.Item key="2"><a href="/admin">Admin</a></Menu.Item>
+          <Menu.Item key="2"><a href="/login">Admin</a></Menu.Item>
           <Menu.Item key="3"><a href="/work">Work</a></Menu.Item>
         </Menu>
       </Header>
