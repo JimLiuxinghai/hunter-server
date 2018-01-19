@@ -1,5 +1,6 @@
-const allConfig = require("./../../config")
-const config = allConfig.database
+const allConfig = require("./../../config/env/config")
+const config = allConfig.default.database
+
 const mysql = require("mysql")
 
 const pool = mysql.createPool({
