@@ -7,6 +7,10 @@ export default {
 	},
 	async insert(ctx) {
 
+
+		console.log(ctx.query.err_msg)
+		let error = ctx.query.err_msg.split('|')
+		console.log(error)
 		let image = fs.readFileSync(path.join(__dirname , '../codes/error.gif'))
 
 		ctx.type = 'image/gif'

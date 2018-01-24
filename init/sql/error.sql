@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2017-12-11 17:43:21
+Date: 2018-01-24 16:43:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,7 +24,7 @@ CREATE TABLE `error` (
   `project_id` varchar(255) NOT NULL COMMENT '项目id',
   `ua` varchar(255) DEFAULT NULL COMMENT 'useragent',
   `url` varchar(255) DEFAULT NULL COMMENT '当前页面链接',
-  `timestamp` datetime DEFAULT NULL COMMENT '时间',
+  `timestamp` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '时间',
   `projectType` varchar(255) DEFAULT NULL COMMENT '设备类型',
   `title` varchar(255) DEFAULT NULL COMMENT '页面title',
   `screenSize` varchar(255) DEFAULT NULL COMMENT '屏幕分辨率',
@@ -35,5 +35,6 @@ CREATE TABLE `error` (
   `rowNum` bigint(20) DEFAULT NULL COMMENT '行号',
   `colNum` bigint(20) DEFAULT NULL COMMENT '列号',
   `level` int(8) DEFAULT NULL COMMENT '级别',
+  `position` longtext,
   PRIMARY KEY (`id`,`project_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
