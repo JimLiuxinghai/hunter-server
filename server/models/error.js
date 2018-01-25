@@ -14,15 +14,16 @@ export default {
 	},
 	
 	async insertError(config = {}) {
-		let keys = ['project_id', 'ua', 'url', 'projectType', 'title', 'screenSize', 'referer', 'host', 'env', 'msg', 'rowNum', 'colNum', 'level'];
+		let keys = ['project_id', 'ua', 'targetUrl', 'projectType', 'title', 'host', 'screenSize', 'referer', 'msg', 'rowNum', 'colNum', 'level', 'breadcrumbs'];
 		let values = [];
 		let data = [];
+
 		keys.forEach((item) => {
 			values.push('?')
-			data.push(config[item]);
+			data.push(JSON.stringify(config[item]));
 		})
-
-		let sql = `insert into error (${keys.join(',')}) values (${keys.join(',')})`;
+		let sql = `insert into error (${keys.join(',')}) values (${data.join(',')})`;
+		console.log(sql)
 		let result = await dbUtils.query( sql, data )
 		return result
 	}
