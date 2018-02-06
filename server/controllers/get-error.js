@@ -3,7 +3,8 @@ import fs from 'fs';
 import path from 'path'
 export default {
 	async get(ctx) {
-
+		let param = ctx.query;
+		
 	},
 	async insert(ctx) {
 		let ua = ctx.request.header['user-agent'];

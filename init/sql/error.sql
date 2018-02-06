@@ -23,7 +23,8 @@ CREATE TABLE `error` (
   `id` int(20) NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `project_id` varchar(255) NOT NULL COMMENT '项目id',
   `ua` varchar(255) DEFAULT NULL COMMENT 'useragent',
-  `targetUrl` varchar(255) DEFAULT NULL COMMENT '当前页面链接',
+  `targetUrl` varchar(255) DEFAULT NULL COMMENT '当前页面链接
+  ',
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间',
   `projectType` varchar(255) DEFAULT NULL COMMENT '设备类型',
   `title` varchar(255) DEFAULT NULL COMMENT '页面title',

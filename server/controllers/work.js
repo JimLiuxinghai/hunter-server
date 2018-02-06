@@ -9,7 +9,7 @@ module.exports = {
       })
     } else {
       // 没有登录态则跳转到错误页面
-      ctx.redirect('/admin')
+      ctx.redirect('/login')
     }
   },
 

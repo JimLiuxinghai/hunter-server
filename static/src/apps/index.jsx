@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Layout, Menu, Breadcrumb } from 'antd'
 import HeadeNav from './../components/header-nav.jsx'
 import FooterCommon from './../components/footer-common.jsx'
-
+import ProList from './../components/proList/index.jsx'
 import 'antd/lib/layout/style/css'
 
 const { Header, Content, Footer } = Layout
@@ -17,9 +17,7 @@ class App extends React.Component {
           <Breadcrumb style={{ margin: '12px 0' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
           </Breadcrumb>
-          <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-            <p>index</p>
-          </div>
+          <ProList />
         </Content>
         <FooterCommon />
       </Layout>
