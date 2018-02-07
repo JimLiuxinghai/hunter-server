@@ -14,7 +14,7 @@ export default {
 	},
 	
 	async insertError(config = {}) {
-		let keys = ['project_id', 'ua', 'targetUrl', 'projectType', 'title', 'host', 'screenSize', 'referer', 'msg', 'rowNum', 'colNum', 'level', 'breadcrumbs'];
+		let keys = ['project_id', 'ua', 'targetUrl', 'projectType', 'title', 'host', 'screenSize', 'referer', 'msg', 'rowNum', 'colNum', 'level', 'breadcrumbs', 'currentIp'];
 		let values = [];
 		let data = [];
 

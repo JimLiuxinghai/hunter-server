@@ -11,11 +11,14 @@ export default {
 		let host = ctx.request.header['host'];
 		let errorList = ctx.query.err_msg.split('|');
 		let result = [];
-
+		const allip = ctx.ips.length > 0 ? ctx.ips[ctx.ips.length - 1] : ctx.ip;
+		let ips = allip.split(':');
+		const currentIp = ips[ips.length - 1];
 		errorList.forEach(async (error) => {
 			let parseError = JSON.parse(error)
 			parseError.ua = ua;
 			parseError.host = host;
+			parseError.currentIp = currentIp;
 			let modalRes = await errorModal.insertError(parseError);
 		})
 
