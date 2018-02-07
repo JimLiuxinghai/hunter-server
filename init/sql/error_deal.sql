@@ -10,17 +10,16 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2018-02-06 14:12:39
+Date: 2018-02-07 10:54:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for error_status
+-- Table structure for error_deal
 -- ----------------------------
-DROP TABLE IF EXISTS `error_status`;
-CREATE TABLE `error_status` (
+DROP TABLE IF EXISTS `error_deal`;
+CREATE TABLE `error_deal` (
   `errorId` int(20) DEFAULT NULL COMMENT '错误id',
-  `status` int(11) DEFAULT NULL COMMENT '错误处理状态 1: 未解决,2: 已解决',
   `user` varchar(255) DEFAULT NULL COMMENT '处理人'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
