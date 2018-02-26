@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2017-12-11 17:34:00
+Date: 2018-02-26 15:32:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,6 +21,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `project_info`;
 CREATE TABLE `project_info` (
   `project` varchar(255) DEFAULT NULL COMMENT '项目名称',
-  `project_id` varchar(255) DEFAULT NULL COMMENT '项目编号',
-  `project_info` varchar(255) DEFAULT NULL COMMENT '项目简介'
+  `projectId` varchar(255) DEFAULT NULL COMMENT '项目编号',
+  `projectInfo` varchar(255) DEFAULT NULL COMMENT '项目简介',
+  `updatetime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
