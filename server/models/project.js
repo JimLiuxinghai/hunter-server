@@ -11,7 +11,7 @@ export default {
 			param.unshift('where')
 		}
 		param.join(' ');
-		let sql = `select * from error ${param}`
+		let sql = `select * from project_info ${param}`
 		let result = await dbUtils.query( sql, data )
 		return result
 	},
@@ -25,7 +25,7 @@ export default {
 			values.push('?')
 			data.push(JSON.stringify(config[item]));
 		})
-		let sql = `insert into error (${keys.join(',')}) values (${data.join(',')})`;
+		let sql = `insert into project_info (${keys.join(',')}) values (${data.join(',')})`;
 		console.log(sql)
 		let result = await dbUtils.query( sql, data )
 		return result
