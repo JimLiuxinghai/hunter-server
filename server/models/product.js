@@ -16,8 +16,8 @@ export default {
 		return result
 	},
 	
-	async insertError(config = {}) {
-		let keys = ['projectId', 'ua', 'targetUrl', 'projectType', 'title', 'host', 'screenSize', 'referer', 'msg', 'rowNum', 'colNum', 'level', 'breadcrumbs', 'currentIp'];
+	async insertPro(config = {}) {
+		let keys = ['project', 'projectId', 'projectInfo', 'projectType']
 		let values = [];
 		let data = [];
 
