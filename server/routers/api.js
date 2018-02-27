@@ -6,7 +6,7 @@ const router = require('koa-router')()
 const userInfoController = require('./../controllers/user-info')
 
 import errorController from './../controllers/get-error'
-import proController from './../controllers/product'
+import proController from './../controllers/project'
 
 
 const routers = router
@@ -17,6 +17,6 @@ const routers = router
   .get('/errorList', errorController.get)
   .get('/error.gif', errorController.insert)
   //项目管理
-  .get('/product', proController.get)
+  .get('/project', proController.get)
   
 module.exports = routers

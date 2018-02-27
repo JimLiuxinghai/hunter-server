@@ -12,6 +12,7 @@ export default {
 		}
 		param.join(' ');
 		let sql = `select * from project_info ${param}`
+		console.log(sql)
 		let result = await dbUtils.query( sql, data )
 		return result
 	},
