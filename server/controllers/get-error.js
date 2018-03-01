@@ -3,6 +3,19 @@ import fs from 'fs';
 import path from 'path'
 import Tips from '../utils/tips';
 export default {
+  /*
+   获取bug详情
+   method: get
+   param = {
+     projectId: '123' //项目id,
+     startTime: '2018-03-01 13:57', //开始时间
+     endTime: '2018-03-01 13:57',   //结束时间
+     pageSize: 20                   //每页多少条
+     pageNum: 1                     //第几页
+     dealState: 2                   //bug状态 1未处理 2已解决
+     sortBy：1                      //2 按错误时间倒序，1 正
+   }
+   */
 	async get(ctx) {
 		let param = ctx.query;
     param.pageNum = param.pageNum || 1;

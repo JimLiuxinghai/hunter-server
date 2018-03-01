@@ -2,9 +2,9 @@ import dbUtils  from './../utils/db-util'
 export default {
   async getError(config = {}) {
     let param = [],
-        data = [],
-        order = 'ORDER BY timestamp DESC',
-        limit = '';
+      data = [],
+      order = 'ORDER BY timestamp DESC',
+      limit = '';
     if (config.startTime) {
       param.push(`timestamp >= ?`);
       data.push(config.startTime);
@@ -30,8 +30,8 @@ export default {
     }
 
     if (config.pageSize && config.pageNum) {
-      const size =  parseInt(config.pageSize);
-      const limitSize = (parseInt(config.pageNum -1)) * size;
+      const size = parseInt(config.pageSize);
+      const limitSize = (parseInt(config.pageNum - 1)) * size;
       data.push(limitSize);
       data.push(size);
       limit = 'LIMIT ?,?';
@@ -39,7 +39,17 @@ export default {
 
     let sql = `select * from error ${param} ${order} ${limit}`;
     let result = await dbUtils.query(sql, data);
-    return result;
+
+    let sqlCount = `select count(*) as count from error ${param}  `;
+    let countData = await dbUtils.query(sqlCount, data);
+    return {
+      data: result,
+      count: countData
+    };
+  },
+
+  async getErrorByTime(config = {}){
+
   },
 
   async insertError(config = {}) {
