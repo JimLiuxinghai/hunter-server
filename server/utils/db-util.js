@@ -18,11 +18,11 @@ let query = function( sql, values ) {
         resolve( err )
       } else {
         connection.query(sql, values, ( err, rows) => {
-
           if ( err ) {
             reject( err )
           } else {
-            resolve( rows )
+            let result = JSON.stringify(rows);
+            resolve(JSON.parse(result));
           }
           connection.release()
         })

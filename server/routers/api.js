@@ -17,6 +17,8 @@ const routers = router
   .get('/errorList', errorController.get)
   .get('/error.gif', errorController.insert)
   //项目管理
+  .get('/project/name', proController.name)
   .get('/project', proController.get)
+  .post('/project', proController.insert)
   
 module.exports = routers

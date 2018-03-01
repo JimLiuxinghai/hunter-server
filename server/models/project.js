@@ -4,18 +4,15 @@ export default {
 		let param = [];
 		let data = [];
 		if(config.projectId) {
-			param.push(`projectId = ?`)
+			param.push(`where projectId = ?`)
 			data.push(config.projectId)
-		}
-		if (param.length > 0) {
-			param.unshift('where')
 		}
 		param.join(' ');
 		let sql = `select * from project_info ${param}`
 		let result = await dbUtils.query( sql, data )
 		return result
 	},
-	
+	//插入project
 	async insertPro(config = {}) {
 		let keys = ['project', 'projectId', 'projectInfo', 'projectType']
 		let values = [];
@@ -23,16 +20,25 @@ export default {
 
 		keys.forEach((item) => {
 			values.push('?')
-			data.push(JSON.stringify(config[item]));
+			data.push(config[item]);
 		})
-		let sql = `insert into project_info (${keys.join(',')}) values (${data.join(',')})`;
-		
+		let sql = `insert into project_info (${keys.join(',')}) values (${values.join(',')})`;
+		console.log(sql)
 		let result = await dbUtils.query( sql, data );
 		return result;
 	},
-
+	//插入user_pro_map
 	async map (config = {}) {
 		let data = [config.userid, config.projectId]
-
+		let sql = `insert into user_pro_map ( userid, projectId ) values (?, ?)`;
+		let result = await dbUtils.query( sql, data );
+		return result
+	},
+	//查询projectname是否存在
+	async hasProject (config = {}) {
+		let data = [config.projectId];
+		let sql = `select * from project_info where projectId = ?`
+		let result = await dbUtils.query( sql, data );
+		return result;
 	}
 }
