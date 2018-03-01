@@ -32,6 +32,34 @@ export default {
     }
 
 	},
+  /*
+   获取每个时间段下bug数量
+   method: get
+   param = {
+   projectId: '123' //项目id,
+   startTime: '2018-03-01 13:57', //开始时间
+   endTime: '2018-03-01 13:57',   //结束时间
+   dealState: 2                   //bug状态 1未处理 2已解决
+   timeType：1                    //1按分钟分组，2 按天分组
+   }
+   success = {
+   count: 1          //bug数量
+   timestamp:2018-02-28 09:57:00      //出现bug的时间
+   }
+   */
+  async getErrorByTime(ctx) {
+    let param = ctx.query;
+    try {
+      let proRes = await errorModal.getErrorByTime(param);
+      let data = Tips.ERR_OK;
+      data.data = proRes;
+      ctx.body = data;
+    } catch (ex) {
+      let data = Tips.ERR_SYSTEM_ERROR;
+      data.data = ex;
+      ctx.body = data;
+    }
+  },
 	async insert(ctx) {
 		let ua = ctx.request.header['user-agent'];
 		let host = ctx.request.header['host'];

@@ -36,19 +36,57 @@ export default {
       data.push(size);
       limit = 'LIMIT ?,?';
     }
+    try {
+      let sql = `select * from error ${param} ${order} ${limit}`;
+      let result = await dbUtils.query(sql, data);
 
-    let sql = `select * from error ${param} ${order} ${limit}`;
-    let result = await dbUtils.query(sql, data);
+      let sqlCount = `select count(*) as count from error ${param}  `;
+      let countData = await dbUtils.query(sqlCount, data);
+      return {
+        data: result,
+        count: countData
+      };
+    } catch (ex) {
+      return ex;
+    }
 
-    let sqlCount = `select count(*) as count from error ${param}  `;
-    let countData = await dbUtils.query(sqlCount, data);
-    return {
-      data: result,
-      count: countData
-    };
   },
 
   async getErrorByTime(config = {}){
+    let param = [],
+        data = [],
+        group = "GROUP BY  DATE_FORMAT(`timestamp`,'%Y-%m-%d %h:%m')";
+    if (config.startTime) {
+      param.push(`timestamp >= ?`);
+      data.push(config.startTime);
+    }
+    if (config.endTime) {
+      param.push(`timestamp <= ?`);
+      data.push(config.endTime)
+    }
+    if (config.projectId) {
+      param.push(`projectId = ?`);
+      data.push(config.projectId)
+    }
+    if (config.dealState) {
+      param.push(`dealState = ?`);
+      data.push(config.dealState)
+    }
+    if (config.timeType && config.timeType == 2) {
+      group = "GROUP BY  DATE_FORMAT(`timestamp`,'%Y-%m-%d')"
+    }
+    if (param.length > 0) {
+      param = param.join(' and ');
+      param = 'where ' + param;
+    }
+    try {
+      let sql = `SELECT COUNT(*) as count, timestamp FROM error ${param} ${group}`;
+      let result = await dbUtils.query(sql, data);
+
+      return result;
+    }  catch (ex) {
+      return ex
+    }
 
   },
 

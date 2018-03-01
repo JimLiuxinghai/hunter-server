@@ -15,6 +15,7 @@ const routers = router
   .post('/user/signUp.json', userInfoController.signUp)
   //错误处理
   .get('/errorList', errorController.get)
+  .get('/errorByTime', errorController.getErrorByTime)
   .get('/error.gif', errorController.insert)
   //项目管理
   .get('/project/name', proController.name)
