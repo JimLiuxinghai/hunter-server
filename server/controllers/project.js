@@ -5,10 +5,18 @@ import { util } from '../utils/util';
 export default {
 	async get (ctx) {
 		let param = ctx.query;
-		let proRes = await projectModal.getPro(param);
-		let data = Tips.ERR_OK;
-		data.data = proRes;
-		ctx.body = data;
+		try {
+			let proRes = await projectModal.getPro(param);
+			let data = Tips.ERR_OK;
+			data.data = proRes;
+			ctx.body = data;
+		}
+		catch (err) {
+			let data = Tips.ERR_SYSTEM_ERROR;
+			data.data = err;
+			ctx.body = data;
+		}
+		
 	},
 	async insert (ctx) {
 		let session = ctx.session;
@@ -18,23 +26,66 @@ export default {
 			userid: session.userid,
 			projectId: param.projectId
 		}
-		let proRes = await projectModal.insertPro(param);
-		let mapRes = await projectModal.map(mapParam);
-		console.log(proRes, mapRes)
-		let data = Tips.ERR_OK;
-		ctx.body = data;
+		try {
+			let proRes = await projectModal.insertPro(param);
+			let mapRes = await projectModal.map(mapParam);
+			let data = Tips.ERR_OK;
+			ctx.body = data;
+		}
+		catch (err) {
+			let data = Tips.ERR_SYSTEM_ERROR;
+			data.data = err;
+			ctx.body = data;
+		}
 	},
+	/*
+		检查该用户下项目名是否重复
+		method: get
+		param = {
+			project: '123' //项目名
+		}
+	*/
 	async name (ctx) {
 		let session = ctx.session;
 		let param = ctx.query;
-		console.log(param, 'params')
 		let projectId = util.md5(param.project + session.userid);
 		let config = {
 			projectId: projectId
 		}
-		let proRes = await projectModal.hasProject(config)
-		console.log(proRes)
-		let data = Tips.ERR_OK;
-		ctx.body = data;
+		try {
+			let proRes = await projectModal.hasProject(config)
+			
+			let data = null
+			console.log(proRes)
+			proRes.length > 0 ? data = Tips.ERR_HAS_NAME : data = Tips.ERR_OK;
+			ctx.body = data;
+		}
+		catch (err) {
+			let data = Tips.ERR_SYSTEM_ERROR;
+			data.data = err;
+			ctx.body = data;
+		}
+		
+	},
+	/*
+		项目添加用户
+		method: 'POST'
+		param = {
+			userid: '123',
+			projectId: '123'
+		}
+	*/
+	async addUser (ctx) {
+		let param = ctx.request.body;
+		try {
+			let mapRes = await projectModal.map(param);
+			let data = Tips.ERR_OK;
+			ctx.body = data;
+		}
+		catch (err) {
+			let data = Tips.ERR_SYSTEM_ERROR;
+			data.data = err;
+			ctx.body = data;
+		}
 	}
 }
