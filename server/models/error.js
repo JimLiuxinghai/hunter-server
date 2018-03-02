@@ -3,14 +3,14 @@ export default {
   async getError(config = {}) {
     let param = [],
       data = [],
-      order = 'ORDER BY timestamp DESC',
+      order = 'ORDER BY createTime DESC',
       limit = '';
     if (config.startTime) {
-      param.push(`timestamp >= ?`);
+      param.push(`createTime >= ?`);
       data.push(config.startTime);
     }
     if (config.endTime) {
-      param.push(`timestamp <= ?`);
+      param.push(`createTime <= ?`);
       data.push(config.endTime)
     }
     if (config.projectId) {
@@ -26,7 +26,7 @@ export default {
       param = 'where ' + param;
     }
     if (config.sortBy) {
-      order = config.sortBy == 1 ? 'ORDER BY timestamp' : order;
+      order = config.sortBy == 1 ? 'ORDER BY createTime' : order;
     }
 
     if (config.pageSize && config.pageNum) {
@@ -55,13 +55,13 @@ export default {
   async getErrorByTime(config = {}){
     let param = [],
         data = [],
-        group = "GROUP BY  DATE_FORMAT(`timestamp`,'%Y-%m-%d %h:%m')";
+        group = "GROUP BY  DATE_FORMAT(createTime,'%Y-%m-%d %h:%m')";
     if (config.startTime) {
-      param.push(`timestamp >= ?`);
+      param.push(`createTime >= ?`);
       data.push(config.startTime);
     }
     if (config.endTime) {
-      param.push(`timestamp <= ?`);
+      param.push(`createTime <= ?`);
       data.push(config.endTime)
     }
     if (config.projectId) {
@@ -73,14 +73,14 @@ export default {
       data.push(config.dealState)
     }
     if (config.timeType && config.timeType == 2) {
-      group = "GROUP BY  DATE_FORMAT(`timestamp`,'%Y-%m-%d')"
+      group = "GROUP BY  DATE_FORMAT(createTime,'%Y-%m-%d')"
     }
     if (param.length > 0) {
       param = param.join(' and ');
       param = 'where ' + param;
     }
     try {
-      let sql = `SELECT COUNT(*) as count, timestamp FROM error ${param} ${group}`;
+      let sql = `SELECT COUNT(*) as count, createTime FROM error ${param} ${group}`;
       let result = await dbUtils.query(sql, data);
 
       return result;
