@@ -1,4 +1,6 @@
 import dbUtils  from './../utils/db-util'
+import md5  from './../utils/util'
+import timeUtils  from './../utils/datetime'
 export default {
   async getError(config = {}) {
     let param = [],
@@ -102,5 +104,48 @@ export default {
     let sql = `insert into error (${keys.join(',')}) values (${data.join(',')})`;
     let result = await dbUtils.query(sql, data);
     return result
+  },
+  async getExistDeal(err_msg){
+    let md5_err_msg=md5.util.md5(err_msg);
+    let sql = `select 1 from error_deal e where e.key = ? limit 1`;
+    let result = await dbUtils.query( sql, [md5_err_msg] )
+    if(Array.isArray(result) && result.length > 0 ) {
+      result = true
+    } else {
+      result = null
+    }
+    return result;
+  },
+  async insertDeal(config={}){
+    let md5_key=md5.util.md5(config.key);
+    let data=[md5_key,config.user,config.reason||'',timeUtils.getNowDatetime()]
+    let sql = `insert into error_deal (\`key\`,\`user\`,reason,updatetime) values (?,?,?,?)`;
+    let result = await dbUtils.query( sql,data)
+    // if(Array.isArray(result) && result.length > 0 ) {
+    //   result = true
+    // } else {
+    //   result = null
+    // }
+    return result;
+  },
+  async updateState(config = {}) {
+	  let data=[];
+	  let state=config.state;
+    let sql=[`UPDATE error SET dealState = CASE id `];
+    data=config.id;
+    console.log(data);
+    data.forEach(item=>{
+      sql.push(`when ? then ${state}`);
+    })
+    sql.push(`end WHERE id IN (${data})`);
+    console.log(sql);
+    let result = await dbUtils.query( sql.join(' '), data )
+    return result;
+  },
+  async updateReason(config = {}){
+    let data=[config.reason,config.key];
+    let sql=`update error_deal as e set reason = ? where e.key = ?`;
+    let result = await dbUtils.query( sql, data );
+    return result;
   }
 }

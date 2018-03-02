@@ -17,6 +17,10 @@ const routers = router
   .get('/errorList', errorController.get)
   .get('/errorByTime', errorController.getErrorByTime)
   .get('/error.gif', errorController.insert)
+  .get('/getExistDeal',errorController.getExistDeal)
+  .post('/insertDeal',errorController.insertDeal)
+  .post('/updateState', errorController.updateState)
+  .post('/updateReason',errorController.updateReason)
   //项目管理
   .get('/project/name', proController.name)
   .get('/project', proController.get)

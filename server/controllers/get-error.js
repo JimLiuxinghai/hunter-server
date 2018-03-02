@@ -2,6 +2,7 @@ import errorModal from '../models/error';
 import fs from 'fs';
 import path from 'path'
 import Tips from '../utils/tips';
+import userCode from '../codes/user';
 export default {
   /*
    获取bug详情
@@ -81,5 +82,113 @@ export default {
 		ctx.status = 200;
         ctx.length = Buffer.byteLength(image);
         ctx.body = new Buffer(image);
-	}
+	},
+  /*
+    查看错误处理是否存在
+  * params: err_msg  错误详情
+  * @return true 存在 null 不存在
+  * */
+	async getExistDeal(ctx){
+    let err_msg=ctx.query.err_msg;
+    try{
+      let modalRes = await errorModal.getExistDeal(err_msg);
+      ctx.body=modalRes;
+    }catch (ex){
+      let data = Tips.ERR_SYSTEM_ERROR;
+      data.data = ex;
+      ctx.body = data;
+    }
+
+  },
+  /*
+    插入处理状态数据
+  * params: err_msg  错误详情
+  * @return success : true 成功 null 失败
+  * */
+  async insertDeal(ctx){
+    let result = {
+      success: false,
+      message: '',
+      data: null
+    }
+    let queryObj=ctx.query;
+    let param={
+      key:queryObj.err_msg,
+      user:ctx.session.userName||''
+    };
+    try{
+      let modalRes = await errorModal.insertDeal(param);
+      if ( modalRes && modalRes.insertId * 1 > 0) {
+        result.success = true
+      } else {
+        result.success = false;
+      }
+      ctx.body=result;
+    }catch (ex){
+      let data = Tips.ERR_SYSTEM_ERROR;
+      data.data = ex;
+      ctx.body = data;
+    }
+  },
+
+
+  /**
+   * 更新处理状态
+   * @param   err_id 错误id （批量多条以逗号拼接）eg:2,3,5
+   * @return  success : true 成功 null 失败
+   */
+  async updateState(ctx){
+	    let ids=ctx.query.err_id;
+      let result = {
+        success: false,
+        message: ''
+      }
+      let params={
+        id:ids.split((ids.indexOf(',')?',':'')),
+        state:ctx.query.state
+     };
+     try{
+       let updateRes = await errorModal.updateState(params);
+       if(updateRes.changedRows>0){
+         result.success=true;
+       }else{
+         result.success=null;
+       }
+       ctx.body=result;
+     }catch(ex){
+       let data = Tips.ERR_SYSTEM_ERROR;
+       data.data = ex;
+       ctx.body = data;
+     }
+  },
+  /**
+   * 更新处理原因
+   * @param  err_msg 错误详情   reason 原因内容
+   * @return success : true 成功 null 失败
+   */
+  async updateReason(ctx){
+    let queryObj=ctx.query;
+    let result = {
+      success: false,
+      message: ''
+    }
+    let params={
+      key:queryObj.err_msg,
+      reason:queryObj.reason
+    };
+    try {
+      let updateRes = await errorModal.updateReason(params);
+      if(updateRes.changedRows>0){
+        result.success=true;
+      }else{
+        result.success=null;
+        result.message=userCode.ERROR_SYS;
+      }
+      ctx.body=result;
+    }catch (ex){
+      let data = Tips.ERR_SYSTEM_ERROR;
+      data.data = ex;
+      ctx.body = data;
+    }
+  }
 }
