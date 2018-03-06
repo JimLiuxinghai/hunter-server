@@ -1,6 +1,6 @@
-const userInfoService = require('./../services/user-info')
-const userCode = require('./../codes/user')
-const utils = require('../utils/util');
+const userInfoService = require('./../../services/user-info')
+const userCode = require('./../../codes/user')
+const utils = require('../../utils/util');
 module.exports = {
 
   /**

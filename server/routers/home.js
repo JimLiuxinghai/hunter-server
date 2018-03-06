@@ -3,7 +3,7 @@
  */
 
 const router = require('koa-router')()
-const index = require('../controllers/index')
+const index = require('../controllers/render/index')
 const auth = require('../services/auth')
 
 module.exports = router

@@ -2,6 +2,8 @@ import path from 'path'
 import Koa from 'koa'
 import convert from 'koa-convert'
 import views from 'koa-views'
+
+import render from 'koa-ejs'
 import koaStatic from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 import koaLogger from 'koa-logger'

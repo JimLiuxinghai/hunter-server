@@ -3,6 +3,7 @@ function log( ctx ) {
     if( !session || !session.isLogin === true  ) {
   		ctx.redirect('/login');
     }
+    console.log(session)
     console.log( ctx.method, ctx.header.host + ctx.url, '中间件信息' )
 }
 

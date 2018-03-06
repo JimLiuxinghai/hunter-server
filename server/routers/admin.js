@@ -3,6 +3,6 @@
  */
 
 const router = require('koa-router')()
-const admin = require('./../controllers/admin')
+const admin = require('./../controllers/render/admin')
 
 module.exports = router.get( '/', admin.indexPage )

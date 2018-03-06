@@ -1,8 +1,8 @@
-import errorModal from '../models/error';
+import errorModal from '../../models/error';
 import fs from 'fs';
 import path from 'path'
-import Tips from '../utils/tips';
-import userCode from '../codes/user';
+import Tips from '../../utils/tips';
+import userCode from '../../codes/user';
 export default {
   /*
    获取bug详情

@@ -1,6 +1,6 @@
-import projectModal from '../models/project';
-import Tips from '../utils/tips';
-import { util } from '../utils/util';
+import projectModal from '../../models/project';
+import Tips from '../../utils/tips';
+import { util } from '../../utils/util';
 
 export default {
 	async get (ctx) {

@@ -11,6 +11,7 @@ module.exports = {
     'work' : './static/src/pages/work.js',
     'index' : './static/src/pages/index.js',
     'error' : './static/src/pages/error.js',
+    'project': './static/src/pages/project.js',
     vendor: ['react', 'react-dom', 'whatwg-fetch'],
   },
   output: {
@@ -40,13 +41,6 @@ module.exports = {
           fallback: "style-loader",
           use: ['css-loader']
         }),
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: ['css-loader', 'sass-loader']
-        })
       },
       {
         test: /\.less$/,

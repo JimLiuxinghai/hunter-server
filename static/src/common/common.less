@@ -12,7 +12,8 @@ html, body {
 		color: #666;
 		box-sizing: border-box;
 		>.right {
-			
+			float: right;
+			font-size: 14px;
 		}
 	}
 	.ejs-inner {
@@ -22,6 +23,21 @@ html, body {
 			width: 200px;
 			float: left;
 			background: #000000;
+			>.nav-item {
+				height: 40px;
+				line-height: 40px;
+				padding: 0 30px;
+
+				>a {
+					display: inline-block;
+					width: 100%;
+					color: #ffffff;
+					text-align: justify;
+				}
+				&:hover {
+
+				}
+			}
 		}
 		>.content {
 			margin-left: 200px;

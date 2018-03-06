@@ -3,10 +3,10 @@
  */
 
 const router = require('koa-router')()
-const userInfoController = require('./../controllers/user-info')
+const userInfoController = require('./../controllers/api/user-info')
 
-import errorController from './../controllers/get-error'
-import proController from './../controllers/project'
+import errorController from './../controllers/api/get-error'
+import proController from './../controllers/api/project'
 
 
 const routers = router
@@ -26,4 +26,5 @@ const routers = router
   .get('/project', proController.get)
   .post('/project', proController.insert)
   
+
 module.exports = routers
