@@ -27,7 +27,6 @@ class App extends React.Component {
          </SyntaxHighlighter>
          <Charts />
         </Content>
-        <FooterCommon />
       </Layout>
     )
   }
