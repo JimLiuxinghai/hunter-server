@@ -1,14 +1,15 @@
 html, body {
 	height: 100%;
+  background-color: #f8f8f8;
 }
 .ejs-layout {
 	height: 100%;
 	.ejs-header {
 		line-height: 60px;
-		background: #fafafa;
+    background: #FDFDFD;
+    box-shadow: 0 2px 8px rgba(229, 229, 229, 0.5);
 		font-size: 20px;
 		padding: 0 30px;
-		border-bottom: 1px solid #eee;
 		color: #666;
 		box-sizing: border-box;
 		>.right {
@@ -18,20 +19,23 @@ html, body {
 	}
 	.ejs-inner {
 		height: 100%;
+    padding-top: 10px;
 		>.ejs-nav {
 			height: 100%;
-			width: 200px;
+			width: 250px;
 			float: left;
-			background: #000000;
+      border-right: 1px solid #e9e9e9;
+      padding-top: 20px;
+			background: #ffffff;
 			>.nav-item {
 				height: 40px;
 				line-height: 40px;
 				padding: 0 30px;
-
+        margin: 4px 0 4px 0;
 				>a {
 					display: inline-block;
 					width: 100%;
-					color: #ffffff;
+          color: rgba(0, 0, 0, 0.65);
 					text-align: justify;
 				}
 				&:hover {
@@ -41,6 +45,7 @@ html, body {
 		}
 		>.content {
 			margin-left: 200px;
+      background-color: #ffffff;
 		}
 	}
 }
