@@ -1,9 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Layout, Menu, Breadcrumb } from 'antd'
-import HeadeNav from './../components/header-nav.jsx'
-import Header from './../components/header/index.jsx'
-import FooterCommon from './../components/footer-common.jsx'
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 import { xonokai } from 'react-syntax-highlighter/styles/prism';
 import 'antd/lib/layout/style/css'
@@ -17,8 +14,6 @@ class App extends React.Component {
     const codeString = '(num) => num + 1';
     return (
       <Layout className="layout">
-        <Header/>
-
         <Content style={{ padding: '0 50px' }}>
           <Breadcrumb style={{ margin: '12px 0' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
