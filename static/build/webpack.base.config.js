@@ -10,7 +10,7 @@ module.exports = {
     'admin' : './static/src/pages/admin.js',
     'work' : './static/src/pages/work.js',
     'index' : './static/src/pages/index.js',
-    'error' : './static/src/pages/error.js',
+    'error' : './static/src/pages/errorMonitor.js',
     'project': './static/src/pages/project.js',
     vendor: ['react', 'react-dom', 'whatwg-fetch'],
   },

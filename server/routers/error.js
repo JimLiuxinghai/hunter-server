@@ -2,11 +2,11 @@
  * 错误页面子路由
  */
 
-const router = require('koa-router')()
+const router = require('koa-router')();
+const controller = require('./../controllers/render/error')
+const auth = require('../services/auth');
 
-module.exports = router.get('*',  async ( ctx ) => {
-  const title = 'error'
-  await ctx.render('error', {
-    title
-  })
-})
+const routers = router
+  .get('/', auth, controller.indexPage);
+
+module.exports = routers;
