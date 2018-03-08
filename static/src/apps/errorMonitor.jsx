@@ -24,6 +24,7 @@ class App extends React.Component {
     const columns = [{
       title: '错误详情',
       dataIndex: 'msg',
+      className: 'column-detail',
     }, {
       title: '页面链接',
       dataIndex: 'targetUrl'
