@@ -8,6 +8,13 @@ const prolist = async ( data ) => {
   return result
 }
 
+const addProApi = async (data) => {
+	let result = await Request.post({
+	  url: '/api/project',
+	  data: data
+	})
+	return result
+}
 
-export  { prolist }
+export  { prolist, addProApi }
 

@@ -10,15 +10,16 @@ class ProList extends React.Component {
     }
     render() {
     	const listItems = this.props.data.map((project, index) =>
-    	  
     	  <Col span={8} key={index}>
-    	  	 <Card title={project.project}>{project.projectInfo || '暂时没有'}</Card>
+    	  	 <Card onClick={() => {
+    	  	 	this.props.checkout(3)
+    	  	 }} title={project.project}>{project.projectInfo || '暂时没有'}</Card>
     	  </Col>
     	);
 	    return (
 	      <div className="prolist-wrapper">
 	      	<Row>
-	      	    <Col className="gutter-row" span={6}>
+	      	    <Col className="gutter-row" span={4}>
 	      	        <div className="add" onClick={() => {
 			      		this.props.checkout(2)
 			      	}}>
@@ -29,7 +30,6 @@ class ProList extends React.Component {
 	      	    	<Row gutter={16}>
 	      	    		{listItems}
 	      	    	</Row>
-	      	        
 	      	    </Col>
 	      	</Row>
 	      </div>

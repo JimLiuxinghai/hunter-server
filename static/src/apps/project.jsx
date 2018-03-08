@@ -2,8 +2,9 @@ import React from 'react'
 import { Layout, Menu, Breadcrumb } from 'antd'
 import SyntaxHighlighter from 'react-syntax-highlighter/prism'
 import { xonokai } from 'react-syntax-highlighter/styles/prism'
-import { prolist } from '../api/project.js'
+import { prolist, addProApi } from '../api/project.js'
 import ProList from '../components/project/pro-list'
+import AddPro from '../components/project/add-pro/index.jsx'
 import 'antd/lib/layout/style/css'
 import '../common/common.less'
 
@@ -21,19 +22,22 @@ class App extends React.Component {
 	async componentDidMount () {
 		let prolistData = await prolist()
 		
-		
+
 		this.setState({
 			proList: prolistData.data
 		})
 	}
-
-	render() {
+ 	async postPro (param) {
+ 		let resData = await addProApi(param)
+ 		console.log(resData)
+ 	}
+	render() {	
 		let showPage = null
 		if(this.state.proStatus == 1) {
-			showPage = <ProList checkout={this.checkStatus} data={this.state.proList}/>
+			showPage = <ProList checkout={this.checkStatus} data={this.state.proList} />
 		}
 		else if (this.state.proStatus == 2) {
-			showPage = null
+			showPage = <AddPro checkout={this.checkStatus} post={this.postPro} />
 		}
 		else if (this.state.proStatus == 3) {
 			showPage = null
