@@ -4,7 +4,7 @@ import 'antd/lib/layout/style/css'
 import {Layout, Menu, Breadcrumb} from 'antd'
 
 import '../common/common.less'
-import ErrorList from '../components/errorMonitor/errot-list'
+import ErrorList from '../components/errorMonitor/error-list'
 import {errorList} from  '../api/errorMonitor'
 
 
