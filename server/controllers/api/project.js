@@ -30,6 +30,9 @@ export default {
 			let proRes = await projectModal.insertPro(param);
 			let mapRes = await projectModal.map(mapParam);
 			let data = Tips.ERR_OK;
+			data.data = {
+				projectId: param.projectId
+			}
 			ctx.body = data;
 		}
 		catch (err) {

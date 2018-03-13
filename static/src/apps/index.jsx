@@ -18,13 +18,6 @@ class App extends React.Component {
           <Breadcrumb style={{ margin: '12px 0' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
           </Breadcrumb>
-         <SyntaxHighlighter language='javascript' style={xonokai}>
-          {`
-            const a = 1;
-            d.script = 11;
-            let ss = ss;
-          `}
-         </SyntaxHighlighter>
          <Charts />
         </Content>
       </Layout>

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "init_sql": "node --harmony ./sql",
-    "dev_server": "nodemon --harmony ./app",
+    "dev_server": "nodemon ./app",
     "dev_static": "webpack --watch --config ./static/build/webpack.dev.config.js",
     "start_static": "webpack --config ./static/build/webpack.prod.config.js",
     "start_server": "node --harmony ./app.js",

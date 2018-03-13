@@ -2,8 +2,6 @@ import path from 'path'
 import Koa from 'koa'
 import convert from 'koa-convert'
 import views from 'koa-views'
-
-import render from 'koa-ejs'
 import koaStatic from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 import koaLogger from 'koa-logger'
@@ -13,7 +11,7 @@ import MysqlStore from 'koa-mysql-session'
 import config  from './../config/env/config'
 import routers from './routers/index'
 const app = new Koa()
-
+app.proxy = true
 // session存储配置
 const sessionMysqlConfig= {
   user: config.database.USERNAME,

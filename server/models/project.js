@@ -20,11 +20,13 @@ export default {
 
 		keys.forEach((item) => {
 			values.push('?')
-			data.push([config[item]]);
+			data.push(config[item]);
 		})
-		let sql = `insert into project_info (${keys.join(',')}) values ( ? )`;
-		console.log(sql)
+
+		let sql = `insert into project_info (${keys.join(',')}) values ( ?, ?, ?, ? )`;
+		
 		let result = await dbUtils.query( sql, data );
+
 		return result;
 	},
 	//插入user_pro_map
