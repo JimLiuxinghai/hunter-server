@@ -12,6 +12,7 @@ module.exports = {
     'index' : './static/src/pages/index.js',
     'error' : './static/src/pages/errorMonitor.js',
     'project': './static/src/pages/project.js',
+    'undeal': './static/src/pages/undeal.js',
     vendor: ['react', 'react-dom', 'whatwg-fetch'],
   },
   output: {
