@@ -72,6 +72,7 @@ export default {
 			let parseError = JSON.parse(error);
 			parseError.ua = ua;
 			parseError.currentIp = currentIp;
+      parseError.dealState = 1;
 			let modalRes = await errorModal.insertError(parseError);
 		});
 
