@@ -1,23 +1,23 @@
 const allConfig = require("./../../config/env/config")
-const config = allConfig.default.database
+const config = allConfig.default.database;
 
-const mysql = require("mysql")
+const mysql = require("mysql");
 
 const pool = mysql.createPool({
   host     :  config.HOST,
   user     : config.USERNAME,
   password : config.PASSWORD,
-  database : config.DATABASE
-})
+  database : config.DATABASE,
+  dateStrings: 'DATE'
+});
 
 let query = function( sql, values ) {
-
   return new Promise(( resolve, reject ) => {
     pool.getConnection(function(err, connection) {
       if (err) {
         resolve( err )
       } else {
-        connection.query(sql, values, ( err, rows) => {
+        let st =  connection.query(sql, values, ( err, rows) => {
           if ( err ) {
             reject( err )
           } else {
@@ -26,12 +26,13 @@ let query = function( sql, values ) {
           }
           connection.release()
         })
+
       }
     })
   })
 
-}
+};
 
 module.exports = {
   query,
-}
+};
