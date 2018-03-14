@@ -3,15 +3,16 @@ import { Layout, Menu, Breadcrumb } from 'antd'
 import SyntaxHighlighter from 'react-syntax-highlighter/prism'
 import { xonokai } from 'react-syntax-highlighter/styles/prism'
 import { prolist, addProApi, isRepeat } from '../api/project.js'
-import ProList from '../components/project/pro-list'
-import AddPro from '../components/project/add-pro/index.jsx'
+import ProList from '../components/project/proList/index.jsx'
+import AddPro from '../components/project/addPro/index.jsx'
+import ProManage from '../components/project/proManage/index.jsx'
 import 'antd/lib/layout/style/css'
 import '../common/common.less'
 
 
 class App extends React.Component {
 	state = {
-		proStatus: 2,   //1:项目列表 2:新增项目 3:项目管理
+		proStatus: 3,   //1:项目列表 2:新增项目 3:项目管理
 		proList: []
 	}
 	checkStatus = (type) => {
@@ -44,7 +45,7 @@ class App extends React.Component {
 			showPage = <AddPro checkout={this.checkStatus} post={this.postPro} repeat={this.repeat} />
 		}
 		else if (this.state.proStatus == 3) {
-			showPage = null
+			showPage = <ProManage checkout={this.checkStatus} />
 		}
 		return (
 			<Layout>

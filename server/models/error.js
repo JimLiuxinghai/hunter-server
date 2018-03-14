@@ -91,9 +91,11 @@ export default {
     }
 
   },
-
+  /*
+    插入错误信息
+  */
   async insertError(config = {}) {
-    let keys = ['projectId', 'ua', 'targetUrl', 'projectType', 'title', 'host', 'screenSize', 'referer', 'msg', 'rowNum', 'colNum', 'level', 'breadcrumbs', 'currentIp'];
+    let keys = ['projectId', 'ua', 'targetUrl', 'projectType', 'title', 'host', 'screenSize', 'referer', 'msg', 'rowNum', 'colNum', 'level', 'breadcrumbs', 'currentIp', 'dealState'];
     let values = [];
     let data = [];
 
