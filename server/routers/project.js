@@ -3,7 +3,7 @@
  */
 
 const router = require('koa-router')();
-const controller = require('./../controllers/render/undeal');
+const controller = require('./../controllers/render/project');
 const auth = require('../services/auth');
 
 const routers = router

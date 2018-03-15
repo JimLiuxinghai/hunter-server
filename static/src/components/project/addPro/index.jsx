@@ -6,7 +6,7 @@ import { Row, Col, Button, Input  } from 'antd';
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 import { xonokai } from 'react-syntax-highlighter/styles/prism';
 import typeData from './assest/type.json'
-
+console.log(typeData)
 class Addpro extends React.Component {
     constructor(props) {
 	   super(props);
@@ -54,6 +54,7 @@ class Addpro extends React.Component {
     	}
     }
     render() {
+
         let code = decodeURIComponent(typeData[this.state.type].code)
         
 	    return (

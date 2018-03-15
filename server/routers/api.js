@@ -25,6 +25,7 @@ const routers = router
   .get('/project/name', proController.name)
   .get('/project', proController.get)
   .post('/project', proController.insert)
+  .get('/project/user', proController.getUser)
   
 
 module.exports = routers

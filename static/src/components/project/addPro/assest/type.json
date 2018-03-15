@@ -1,9 +1,15 @@
 {
-	"js": {
+	"Js": {
 		"code": "%3Cscript%3E%0A%09(function()%7B%0A%09%09window.__hunter%20%3D%20'631a8adf420929d26e220e41a2e76d46'%3B%0A%20%20%20%20%20%20%20%20(function()%20%7B%0A%20%20%20%20%20%20%20%20%20%20var%20vds%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20%20%20%20%20vds.type%3D'text%2Fjavascript'%3B%0A%20%20%20%20%20%20%20%20%20%20vds.async%20%3D%20true%3B%0A%20%20%20%20%20%20%20%20%20%20vds.src%20%3D%20'%2F%2Fresource.brandwisdom.cn%2Fjs%2Fhunter.min.js'%3B%0A%20%20%20%20%20%20%20%20%20%20var%20s%20%3D%20document.getElementsByTagName('script')%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20s.parentNode.insertBefore(vds%2C%20s)%3B%0A%20%20%20%20%20%20%20%20%7D)()%3B%0A%20%20%20%20%20%20%20%20var%20error_report%20%3D%20new%20hunter(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20delay%3A%201000%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D)()%3B%0A%3C%2Fscript%3E"
 	},
 	"React": {
-		"code": ""
+		"code": "暂时还没有"
+	},
+	"Angular": {
+		"code": "angular"
+	},
+	"Vue": {
+		"code": "vue"
 	}
 }
 
