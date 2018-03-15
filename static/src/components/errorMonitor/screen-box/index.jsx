@@ -11,15 +11,17 @@ class screenBox extends React.Component {
   constructor(props) {
     super(props);
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    return !(nextProps.selectType == this.props.selectType)
+  }
   onTimeChange(value, dateString){
     console.log('From: ', dateString[0], ', to: ', dateString[1]);
   }
   onRadioChange(e){
     this.props.timeType(e.target.value);
   }
-
+ 
   render() {
-
     let type = this.props.selectType;
     return (
       <div className="type-wrapper">
@@ -41,7 +43,7 @@ class screenBox extends React.Component {
 }
 screenBox.propTypes = {
   timeType: PropTypes.func.isRequired,
-  selectType: PropTypes.number.isRequired
+  selectType: PropTypes.string.isRequired
 };
 
 
