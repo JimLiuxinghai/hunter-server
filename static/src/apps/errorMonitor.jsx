@@ -6,15 +6,15 @@ import {Layout, Menu, Breadcrumb} from 'antd'
 import '../common/common.less'
 import ErrorList from '../components/errorMonitor/error-list'
 import ErrorCharts from '../components/errorMonitor/error-chart'
+import ScreenBox from '../components/errorMonitor/screen-box'
 import {errorList, errorByTime} from  '../api/errorMonitor'
 import timeUtils  from './../utils/datetime'
-import DataSet from '\@antv/data-set';
-import radioButton from "../components/errorMonitor/radio-button/index";
 
 class App extends React.Component {
   state = {
     errorList: [],
-    errorDataChart: []
+    errorDataChart: [],
+    stateType: "1"
   };
 
   async getErrorByTime(param) {
@@ -46,6 +46,12 @@ class App extends React.Component {
       await this.getErrorList();
     }, 10000);
   }
+
+  timeType = (newType) =>  {
+    this.setState({
+      stateType: newType
+    });
+  };
 
   render() {
     const columns = [{
@@ -79,6 +85,7 @@ class App extends React.Component {
         <Breadcrumb style={{margin: '12px'}}>
           <Breadcrumb.Item>实时监控</Breadcrumb.Item>
         </Breadcrumb>
+        <ScreenBox timeType={this.timeType} selectType={this.state.stateType}></ScreenBox>
         <ErrorCharts data={this.state.errorDataChart} cols={cols}/>
         <ErrorList columns={columns} data={this.state.errorList}/>
       </Layout>

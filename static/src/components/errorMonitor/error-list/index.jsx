@@ -22,6 +22,7 @@ class errorList extends React.Component {
               <Table
                 columns={columns}
                 dataSource={data}
+                scroll={{ x: 2000 }}
                 bordered
               />
             </Card>
