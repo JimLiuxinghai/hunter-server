@@ -17,40 +17,69 @@ class App extends React.Component {
     stateType: "1"
   };
 
-  async getErrorByTime(param) {
-    let resData = await errorByTime();
+  async getErrorByTime(param, formatStr) {
+    let resData = await errorByTime(param);
     let chartData = resData.data;
 
     chartData.map((item) => {
       let date = new Date(item.createTime);
-      item.createTime = timeUtils.format(date, 'hh:mm:ss');
+      item.createTime = timeUtils.format(date, formatStr);
       return item;
     });
     this.setState({
       errorDataChart: chartData
     });
   }
-  async getErrorList(param){
-    let errorListData = await errorList();
+
+  async getErrorList(param) {
+    let errorListData = await errorList(param);
     this.setState({
       errorList: errorListData.data.data
     })
   }
 
+  switchDate = (date, type) => {
+    let dateStr = '';
+    switch (type) {
+      case "1":
+        dateStr = timeUtils.switch(date, 0.042);
+        break;
+      case "2":
+        dateStr = timeUtils.switch(date, 1);
+        break;
+      case "3":
+        dateStr = timeUtils.switch(date, 7);
+        break;
+    }
+    return dateStr;
+  };
+  async getError(){
+    let nowTime = timeUtils.getNowDatetime(),
+      type = this.state.stateType,
+      formatStr = type == 3 ? 'yyyy-mm-dd hh:MM:ss' : 'hh:mm:ss',
+      config = {
+        startTime: this.switchDate(nowTime, type),
+        endTime: nowTime,
+        timeType: type == 3 ? 2 : 1,
+      };
+    console.log(this.state.stateType);
+    await this.getErrorByTime(config, formatStr);
+    await this.getErrorList(config);
+  };
   async componentDidMount() {
-
-    await this.getErrorByTime();
-    await this.getErrorList();
+    this.getError();
     let timer = setInterval(async () => {
-      await this.getErrorByTime();
-      await this.getErrorList();
-    }, 10000);
+      this.getError();
+    }, 10000000);
   }
 
-  timeType = (newType) =>  {
+  timeType = (newType) => {
     this.setState({
       stateType: newType
+    },()=>{
+      this.getError();
     });
+
   };
 
   render() {
