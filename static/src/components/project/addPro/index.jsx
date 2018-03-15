@@ -11,7 +11,7 @@ class Addpro extends React.Component {
     constructor(props) {
 	   super(props);
 	   this.state = {
-	   		type: 'js',
+	   		type: 'Js',
 	   		name: '',
             status: 0, //0:未添加; 1:已添加 展示代码,
             projectId: ''
@@ -54,7 +54,8 @@ class Addpro extends React.Component {
     	}
     }
     render() {
-
+        console.log(typeData)
+        console.log(this.state.type)
         let code = decodeURIComponent(typeData[this.state.type].code)
         
 	    return (
@@ -62,7 +63,7 @@ class Addpro extends React.Component {
 	        	<div className="title">项目名称:</div>
 	      		<Input placeholder="项目名称" className="input"  onInput ={this.changeName.bind(this)}/>
 	      		<div className="title">项目类型:</div>
-	      		<Type switchType={this.switchType}/>
+	      		<Type switchType={this.switchType} type={this.state.type}/>
                 {
                     this.state.status == 0 ? <Button type="primary" onClick={this.sure.bind(this)}>生成代码</Button> : <div className="result">
                         <SyntaxHighlighter language='javascript' style={xonokai}>

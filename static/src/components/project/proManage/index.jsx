@@ -15,6 +15,17 @@ class ProManage extends React.Component {
     	const operations = <Button onClick={() => {
     		this.props.checkout(1)
     	}}>返回</Button>;
+    	let userList = null
+    	
+    	if(this.props.proUser) {
+    		userList = this.props.proUser.map((user, index) =>
+    			<div className="list-item" key={index}>
+    				<div className="name">{user.username}</div>
+    				<div className="mail">{user.email}</div>
+    			</div>
+    		);
+    	}
+    	
 	    return (
 	        <div className="pro-manage">
 	      		<Tabs tabBarExtraContent={operations}>
@@ -34,7 +45,9 @@ class ProManage extends React.Component {
 		      	    	
 		      	    </TabPane>
 		      	    <TabPane tab="成员列表" key="2">
-		      	    	成员列表
+		      	    	<div className="user-info">
+		      	    		{userList}
+		      	    	</div>
 		      	    </TabPane>
 	      	  	</Tabs>
 	        </div>
@@ -44,6 +57,7 @@ class ProManage extends React.Component {
 
 ProManage.propTypes = {
     checkout: PropTypes.func.isRequired,
-    proItem: PropTypes.object
+    proItem: PropTypes.object,
+    proUser: PropTypes.array,
 };
 export default ProManage

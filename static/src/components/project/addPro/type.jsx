@@ -24,20 +24,14 @@ const typeData = [
 class Type extends React.Component {
     constructor(props) {
 	   super(props);
-       this.state = {
-          type: ''
-       }
     }
     chooseType(type) {
-        this.setState({
-            type: type
-        })
         this.props.switchType(type)
     }
     render() {
         let _self = this;
     	const iconList = typeData.map((item, index) =>
-    		<li className={_self.state.type == item.name ? 'icon-wrapper active' : 'icon-wrapper'} key={index} onClick={() => {
+    		<li className={_self.props.type == item.name ? 'icon-wrapper active' : 'icon-wrapper'} key={index} onClick={() => {
                 this.chooseType(item.name)
             }}>
     			<Icon type={item.type} key={index} className="icon" />
@@ -56,5 +50,6 @@ class Type extends React.Component {
 
 Type.propTypes = {
     switchType: PropTypes.func.isRequired,
+    type: PropTypes.string.isRequired
 };
 export default Type
