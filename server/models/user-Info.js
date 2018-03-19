@@ -72,8 +72,15 @@ const user = {
     }
     return result
   },
-
-
+  /*
+  * 使用userid查询所有用户
+  */
+  async getUserById (config = {}) {
+    let data = [config.userid]
+    let sql = `select userid, email, username from user where userid in ( ? )`
+    let result = await dbUtils.query( sql, data )
+    return result
+  }
 
 }
 

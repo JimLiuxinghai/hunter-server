@@ -8,11 +8,15 @@ class ProList extends React.Component {
     constructor(props) {
 	   super(props);
     }
+    gotoDetail(index) {
+    	this.props.select(index)
+    	this.props.checkout(3)
+    }
     render() {
     	const listItems = this.props.data.map((project, index) =>
     	  <Col span={8} key={index}>
     	  	 <Card onClick={() => {
-    	  	 	this.props.checkout(3)
+    	  	 	this.gotoDetail(index)
     	  	 }} title={project.project}>{project.projectInfo || '暂时没有'}</Card>
     	  </Col>
     	);
@@ -39,6 +43,7 @@ class ProList extends React.Component {
 
 ProList.propTypes = {
     checkout: PropTypes.func.isRequired,
+    select: PropTypes.func.isRequired,
     data: PropTypes.array.isRequired
 };
 export default ProList

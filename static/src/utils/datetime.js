@@ -91,14 +91,19 @@ const datatime = {
    * */
   switch: function (date, num) {
     let thisTime = new Date(date).getTime();
-    let lastTime = new Date(thisTime + (num * 86400000));
+    let lastTime = new Date(thisTime - (num * 86400000));
     let lastYear = lastTime.getFullYear();
     let lastMonth = lastTime.getMonth() + 1;
     lastMonth = lastMonth < 10 ? `0${lastMonth}` : lastMonth;
     let lastDay = lastTime.getDate();
     lastDay = lastDay < 10 ? `0${lastDay}` : lastDay;
-
-    return `${lastYear}-${lastMonth}-${lastDay}`;
+    let hour = lastTime.getHours();
+    hour = hour < 10 ? `0${hour}` : hour;
+    let minute = lastTime.getMinutes();
+    minute = minute < 10 ? `0${minute}` : minute;
+    let second = lastTime.getSeconds();
+    second = second < 10 ? `0${second}` : second;
+    return `${lastYear}-${lastMonth}-${lastDay} ${hour}:${minute}:${second}`;
   },
 
 };

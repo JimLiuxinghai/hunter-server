@@ -23,5 +23,13 @@ const isRepeat = async (data) => {
 	})
 	return result
 }
-export  { prolist, addProApi, isRepeat }
+
+const proUser = async (data) => {
+	let result = await Request.get({
+		url: '/api/project/user',
+		data: data
+	})
+	return result
+}
+export  { prolist, addProApi, isRepeat, proUser }
 

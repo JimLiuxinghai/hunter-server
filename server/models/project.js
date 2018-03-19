@@ -7,7 +7,7 @@ export default {
 			param.push(`where projectId = ?`)
 			data.push(config.projectId)
 		}
-		param.join(' ');
+		param = param.join(' ');
 		let sql = `select * from project_info ${param}`
 		let result = await dbUtils.query( sql, data )
 		return result
@@ -42,6 +42,23 @@ export default {
 		let sql = `select * from project_info where projectId = ?`
 		let result = await dbUtils.query( sql, data );
 		return result;
+	},
+	//查询user_pro_map
+	async getUser (config = {}) {
+		let data = [];
+		let param = [];
+		if(config.projectId) {
+			param.push(`projectId = ?`)
+			data.push(config.projectId)
+		}
+		if(config.userid) {
+			param.push(`userid = ?`)
+			data.push(config.userid)
+		}
+		param = param.join('and')
+		let sql = `select * from user_pro_map where ${param}`
+		let result = await dbUtils.query( sql, data )
+		return result
 	}
 
 }

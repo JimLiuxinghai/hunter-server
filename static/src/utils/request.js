@@ -1,6 +1,7 @@
 import 'whatwg-fetch';
 
 function fetchEvent( options ) {
+
   if ( !options ) {
     return;
   }
@@ -68,7 +69,6 @@ function fetchEvent( options ) {
     // .then((response) => {
     //   return response.json();
     // })
-
     return new Promise(( resolve, reject ) => {
       window.fetch(_url, fetchParams)
       .then((response) => {
@@ -85,6 +85,7 @@ function fetchEvent( options ) {
 }
 
 const request = {
+
   get( options ) {
     if ( typeof options !== 'object') {
       return;

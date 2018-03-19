@@ -11,7 +11,7 @@ import MysqlStore from 'koa-mysql-session'
 import config  from './../config/env/config'
 import routers from './routers/index'
 const app = new Koa()
-app.proxy = true
+
 // session存储配置
 const sessionMysqlConfig= {
   user: config.database.USERNAME,

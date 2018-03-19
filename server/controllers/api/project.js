@@ -1,4 +1,5 @@
 import projectModal from '../../models/project';
+import userModal from '../../models/user-Info';
 import Tips from '../../utils/tips';
 import { util } from '../../utils/util';
 
@@ -83,6 +84,34 @@ export default {
 		try {
 			let mapRes = await projectModal.map(param);
 			let data = Tips.ERR_OK;
+			ctx.body = data;
+		}
+		catch (err) {
+			let data = Tips.ERR_SYSTEM_ERROR;
+			data.data = err;
+			ctx.body = data;
+		}
+	},
+	/*
+	* 获取项目用户
+	*/
+	async getUser (ctx) {
+		let param = ctx.query;
+		try {
+			let mapRes = await projectModal.getUser(param);
+			
+			let userArr = []
+			mapRes.forEach((map) => {
+				userArr.push(map.userid)
+			})
+			
+			let newParam = {
+				userid: userArr
+			}
+			let userRes = await userModal.getUserById(newParam)
+
+			let data = Tips.ERR_OK;
+			data.data = userRes
 			ctx.body = data;
 		}
 		catch (err) {

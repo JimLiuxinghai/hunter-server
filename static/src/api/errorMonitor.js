@@ -7,5 +7,11 @@ const errorList = async (data) => {
   });
   return result
 };
-
-export  {errorList}
+const errorByTime = async (data) => {
+  let result = await Request.get({
+    url: '/api/errorByTime',
+    data: data
+  });
+  return result
+};
+export  {errorList, errorByTime}

@@ -57,7 +57,7 @@ export default {
   async getErrorByTime(config = {}){
     let param = [],
         data = [],
-        group = "GROUP BY  DATE_FORMAT(createTime,'%Y-%m-%d %h:%m')";
+        group = "GROUP BY  DATE_FORMAT(createTime,'%Y-%m-%d %H:%i')";
     if (config.startTime) {
       param.push(`createTime >= ?`);
       data.push(config.startTime);
@@ -84,7 +84,7 @@ export default {
     try {
       let sql = `SELECT COUNT(*) as count, createTime FROM error ${param} ${group}`;
       let result = await dbUtils.query(sql, data);
-
+      console.log(sql);
       return result;
     }  catch (ex) {
       return ex
