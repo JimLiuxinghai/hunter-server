@@ -25,8 +25,7 @@ class App extends React.Component {
   render() {
     const columns = [{
       title: 'id',
-      dataIndex: 'id',
-      className: 'column-detail',
+      dataIndex: 'id'
     }, {
       title: '错误原因',
       dataIndex: 'reason'

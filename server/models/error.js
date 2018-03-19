@@ -57,7 +57,7 @@ export default {
   async getErrorByTime(config = {}){
     let param = [],
         data = [],
-        group = "GROUP BY  DATE_FORMAT(createTime,'%Y-%m-%d %H:%i')";
+        group = "GROUP BY  DATE_FORMAT(createTime,'%Y-%m-%d %h:%m')";
     if (config.startTime) {
       param.push(`createTime >= ?`);
       data.push(config.startTime);
@@ -84,7 +84,7 @@ export default {
     try {
       let sql = `SELECT COUNT(*) as count, createTime FROM error ${param} ${group}`;
       let result = await dbUtils.query(sql, data);
-      console.log(sql);
+
       return result;
     }  catch (ex) {
       return ex
@@ -130,7 +130,7 @@ export default {
     }
 
     try {
-      let sql = `select * from error_deal ${param} ${limit}`;
+      let sql = `select * from error_deal as e ${param} ${limit}`;
       let result = await dbUtils.query(sql, data);
 
       let sqlCount = `select count(*) as count from error ${param}  `;
@@ -142,6 +142,14 @@ export default {
     } catch (ex) {
       return ex;
     }
+
+    // try {
+    //   let sql  = `select * from error_deal ${param}`
+    // }
+    // let sql = `select * from error_deal as e where e.key = ? limit 1`;
+
+    // let result = await dbUtils.query( sql, [md5_err_msg])
+    // return result;
   },
   async insertDeal(config={}){
     let md5_key=md5.util.md5(config.key);

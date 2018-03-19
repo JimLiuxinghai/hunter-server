@@ -10,7 +10,8 @@ class dealList extends React.Component {
   render() {
     const columns = this.props.columns;
     const data = this.props.data;
-
+    console.log(columns);
+    console.log(data);
     return (
       <div className="undealList-wrapper">
         <Row>
