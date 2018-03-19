@@ -107,16 +107,41 @@ export default {
     let result = await dbUtils.query(sql, data);
     return result
   },
-  async getExistDeal(err_msg){
-    let md5_err_msg=md5.util.md5(err_msg);
-    let sql = `select 1 from error_deal e where e.key = ? limit 1`;
-    let result = await dbUtils.query( sql, [md5_err_msg] )
-    if(Array.isArray(result) && result.length > 0 ) {
-      result = true
-    } else {
-      result = null
+  async getExistDeal(config = {}){
+    // let md5_err_msg=md5.util.md5(err_msg);
+
+    let param = [],
+      data = [],
+      limit = '';
+    if(config.err_msg) {
+      param.push(`err_msg = ?`);
+      data.push(md5.util.md5(config.err_msg))
     }
-    return result;
+    if (param.length > 0) {
+      param = param.join(' and ');
+      param = 'where ' + param;
+    }
+    if (config.pageSize && config.pageNum) {
+      const size = parseInt(config.pageSize);
+      const limitSize = (parseInt(config.pageNum - 1)) * size;
+      data.push(limitSize);
+      data.push(size);
+      limit = 'LIMIT ?,?';
+    }
+
+    try {
+      let sql = `select * from error_deal ${param} ${limit}`;
+      let result = await dbUtils.query(sql, data);
+
+      let sqlCount = `select count(*) as count from error ${param}  `;
+      let countData = await dbUtils.query(sqlCount, data);
+      return {
+        data: result,
+        count: countData
+      };
+    } catch (ex) {
+      return ex;
+    }
   },
   async insertDeal(config={}){
     let md5_key=md5.util.md5(config.key);

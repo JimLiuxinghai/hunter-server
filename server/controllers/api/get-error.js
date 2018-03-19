@@ -83,7 +83,7 @@ export default {
         ctx.body = new Buffer(image);
 	},
   /*
-    查看错误处理是否存在
+  * 查看错误处理是否存在
   * params: err_msg  错误详情
   * @return true 存在 null 不存在
   * */
