@@ -100,7 +100,7 @@ export default {
 
   },
   /*
-    插入处理状态数据
+  * 插入处理状态数据
   * params: err_msg  错误详情
   * @return success : true 成功 null 失败
   * */
@@ -109,23 +109,17 @@ export default {
       success: false,
       message: '',
       data: null
-    }
-    let queryObj=ctx.query;
-    let param={
-      key:queryObj.err_msg,
-      user:ctx.session.userName||''
     };
-    try{
+    let param = ctx.request.body;
+
+    try {
       let modalRes = await errorModal.insertDeal(param);
-      if ( modalRes && modalRes.insertId * 1 > 0) {
-        result.success = true
-      } else {
-        result.success = false;
-      }
-      ctx.body=result;
-    }catch (ex){
+      let data = Tips.ERR_OK;
+      ctx.body = data;
+    }
+    catch (err) {
       let data = Tips.ERR_SYSTEM_ERROR;
-      data.data = ex;
+      data.data = err;
       ctx.body = data;
     }
   },
@@ -133,28 +127,16 @@ export default {
 
   /**
    * 更新处理状态
-   * @param   err_id 错误id （批量多条以逗号拼接）eg:2,3,5
+   * @param   err_id 错误id
    * @return  success : true 成功 null 失败
    */
   async updateState(ctx){
-	    let ids=ctx.query.err_id;
-      let result = {
-        success: false,
-        message: ''
-      }
-      let params={
-        id:ids.split((ids.indexOf(',')?',':'')),
-        state:ctx.query.state
-     };
-     try{
+	    let params = ctx.request.body;
+     try {
        let updateRes = await errorModal.updateState(params);
-       if(updateRes.changedRows>0){
-         result.success=true;
-       }else{
-         result.success=null;
-       }
-       ctx.body=result;
-     }catch(ex){
+       let data = Tips.ERR_OK;
+       ctx.body = data;
+     } catch(ex){
        let data = Tips.ERR_SYSTEM_ERROR;
        data.data = ex;
        ctx.body = data;

@@ -107,16 +107,15 @@ export default {
     let result = await dbUtils.query(sql, data);
     return result
   },
+  /**
+   * 获取未处理错误
+   * @param config
+   * @returns {Promise.<*>}
+   */
   async getExistDeal(config = {}){
-    // let md5_err_msg=md5.util.md5(err_msg);
-
     let param = [],
       data = [],
       limit = '';
-    if(config.err_msg) {
-      param.push(`err_msg = ?`);
-      data.push(md5.util.md5(config.err_msg))
-    }
     if (param.length > 0) {
       param = param.join(' and ');
       param = 'where ' + param;
@@ -130,10 +129,10 @@ export default {
     }
 
     try {
-      let sql = `select * from error_deal as e ${param} ${limit}`;
+      let sql = 'select * from error where dealState = 1 ' + limit;
       let result = await dbUtils.query(sql, data);
 
-      let sqlCount = `select count(*) as count from error ${param}  `;
+      let sqlCount = `select count(*) as count from error where dealState = 1 `;
       let countData = await dbUtils.query(sqlCount, data);
       return {
         data: result,
@@ -142,40 +141,53 @@ export default {
     } catch (ex) {
       return ex;
     }
-
-    // try {
-    //   let sql  = `select * from error_deal ${param}`
-    // }
-    // let sql = `select * from error_deal as e where e.key = ? limit 1`;
-
-    // let result = await dbUtils.query( sql, [md5_err_msg])
-    // return result;
   },
-  async insertDeal(config={}){
-    let md5_key=md5.util.md5(config.key);
-    let data=[md5_key,config.user,config.reason||'',timeUtils.getNowDatetime()]
-    let sql = `insert into error_deal (\`key\`,\`user\`,reason,updatetime) values (?,?,?,?)`;
-    let result = await dbUtils.query( sql,data)
-    // if(Array.isArray(result) && result.length > 0 ) {
-    //   result = true
-    // } else {
-    //   result = null
-    // }
+
+  /**
+   * 添加处理人和原因
+   * @param config
+   * @returns {Promise.<*>}
+   */
+  async insertDeal(config = {}){
+    let key = md5.util.md5(config.key);
+    let keys = ['`key`','`user`','reason'];
+    let values = [];
+    let data = [];
+
+    keys.forEach((item) => {
+      values.push('?');
+      if(item === '`key`'){
+        data.push(JSON.stringify(key));
+      } else if(item === '`user`'){
+        data.push(JSON.stringify(config['user']));
+      } else {
+        data.push(JSON.stringify(config[item]));
+      }
+    });
+
+    let sql = `insert into error_deal (${keys.join(',')}) values (${data.join(',')})`;
+
+    let result = await dbUtils.query(sql, data);
     return result;
   },
+
+  /**
+   * 更新处理状态
+   * @param config
+   * @returns {Promise.<*>}
+   */
   async updateState(config = {}) {
-	  let data=[];
-	  let state=config.state;
-    let sql=[`UPDATE error SET dealState = CASE id `];
-    data=config.id;
-    console.log(data);
-    data.forEach(item=>{
-      sql.push(`when ? then ${state}`);
-    })
-    sql.push(`end WHERE id IN (${data})`);
-    console.log(sql);
-    let result = await dbUtils.query( sql.join(' '), data )
-    return result;
+	  let data = [];
+
+    try {
+      let sql = `UPDATE error SET dealState = 2  WHERE id = ${config.err_id}`;
+      let result = await dbUtils.query( sql, data );
+      return {
+        data: result
+      };
+    } catch (ex) {
+      return ex;
+    }
   },
   async updateReason(config = {}){
     let data=[config.reason,config.key];

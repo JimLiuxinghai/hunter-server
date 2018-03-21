@@ -11,6 +11,8 @@ class errorList extends React.Component {
     const columns = this.props.columns;
     const data = this.props.data;
 
+    console.log(columns,data,'error-list');
+
     return (
       <div className="errorList-wrapper">
         <Row>
