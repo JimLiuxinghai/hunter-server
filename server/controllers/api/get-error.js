@@ -2,7 +2,20 @@ import errorModal from '../../models/error';
 import fs from 'fs';
 import path from 'path'
 import Tips from '../../utils/tips';
+import datetime from '../../utils/datetime';
 import userCode from '../../codes/user';
+
+
+const getUsers = (list) => {
+    let users = []
+    list.forEach((item) => {
+        if(users.indexOf(item.currentIp) == -1) {
+            users.push(item.currentIp)
+        }
+    })
+    return users.length
+}
+
 export default {
   /*
    获取bug详情
@@ -61,6 +74,73 @@ export default {
       ctx.body = data;
     }
   },
+  /*
+   * 分天显示错误数量
+   * method: get
+   * param = {
+        prokectId: '123',
+        startTime: '2018-03-01', //开始时间
+        endTime: '2018-03-02'
+     }
+  */
+  async getErrCount (ctx) {
+    let param = ctx.query;
+    let dateArr = datetime.filterWeek([param.startTime, param.endTime])
+    try {
+        let errRes = await errorModal.getErrorByTime(param);
+        let newData = [];
+        dateArr.forEach((date) => {
+            let data = {
+                time: date,
+                count: 0
+            }
+            errRes.forEach((err) => {
+                if(date == datetime.parseStampToFormat(err.createTime)) {
+                    data.count += err.count
+                }
+            })
+            newData.push(data)
+        })
+        
+        let data = Tips.ERR_OK;
+        data.data = newData;
+        ctx.body = data;
+    }
+    catch(e) {
+        let data = Tips.ERR_SYSTEM_ERROR;
+        data.data = e;
+        ctx.body = data;
+    }
+  },
+
+
+  /*
+  * bug影响用户数量
+  * method: get
+  * param = {
+       projectId: '123' //项目id,
+       startTime: '2018-03-01', //开始时间
+       endTime: '2018-03-01',   //结束时间
+    }
+  */
+  async errorUser (ctx) {
+     let param = ctx.query;
+     try {
+        let errRes = await errorModal.getError(param);
+        let users = getUsers(errRes.data)
+        let data = Tips.ERR_OK;
+        data.data = {
+            users: users
+        };
+        ctx.body = data;
+
+     } catch (e) {
+        let data = Tips.ERR_SYSTEM_ERROR;
+        data.data = e;
+        ctx.body = data;
+     }
+  },
+
 	async insert(ctx) {
 		let ua = ctx.request.header['user-agent'];
 		let errorList = ctx.query.err_msg.split('|');
@@ -82,11 +162,11 @@ export default {
         ctx.length = Buffer.byteLength(image);
         ctx.body = new Buffer(image);
 	},
-  /*
-  * 查看错误处理是否存在
-  * params: err_msg  错误详情
-  * @return true 存在 null 不存在
-  * */
+    /*
+    * 查看错误处理是否存在
+    * params: err_msg  错误详情
+    * @return true 存在 null 不存在
+    * */
 	async getExistDeal(ctx){
     let err_msg=ctx.query.err_msg;
     try{
@@ -98,37 +178,37 @@ export default {
       ctx.body = data;
     }
 
-  },
-  /*
+    },
+    /*
     插入处理状态数据
-  * params: err_msg  错误详情
-  * @return success : true 成功 null 失败
-  * */
-  async insertDeal(ctx){
-    let result = {
-      success: false,
-      message: '',
-      data: null
-    }
-    let queryObj=ctx.query;
-    let param={
-      key:queryObj.err_msg,
-      user:ctx.session.userName||''
-    };
-    try{
-      let modalRes = await errorModal.insertDeal(param);
-      if ( modalRes && modalRes.insertId * 1 > 0) {
-        result.success = true
-      } else {
-        result.success = false;
-      }
-      ctx.body=result;
-    }catch (ex){
-      let data = Tips.ERR_SYSTEM_ERROR;
-      data.data = ex;
-      ctx.body = data;
-    }
-  },
+    * params: err_msg  错误详情
+    * @return success : true 成功 null 失败
+    * */
+    async insertDeal(ctx){
+        let result = {
+          success: false,
+          message: '',
+          data: null
+        }
+        let queryObj=ctx.query;
+        let param={
+          key:queryObj.err_msg,
+          user:ctx.session.userName||''
+        };
+        try{
+          let modalRes = await errorModal.insertDeal(param);
+          if ( modalRes && modalRes.insertId * 1 > 0) {
+            result.success = true
+          } else {
+            result.success = false;
+          }
+          ctx.body=result;
+        }catch (ex){
+          let data = Tips.ERR_SYSTEM_ERROR;
+          data.data = ex;
+          ctx.body = data;
+        }
+    },
 
 
   /**

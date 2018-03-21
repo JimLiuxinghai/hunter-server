@@ -13,10 +13,12 @@ const routers = router
   .get('/user/getUserInfo', userInfoController.getLoginUserInfo)
   .post('/user/signIn.json', userInfoController.signIn)
   .post('/user/signUp.json', userInfoController.signUp)
+  //概览
+  .get('/getErrByDay', errorController.getErrCount)
+  .get('/errorUser', errorController.errorUser)
   //错误处理
   .get('/errorList', errorController.get)
   .get('/errorByTime', errorController.getErrorByTime)
-  .get('/error.gif', errorController.insert)
   .get('/getExistDeal',errorController.getExistDeal)
   .post('/insertDeal',errorController.insertDeal)
   .post('/updateState', errorController.updateState)
@@ -26,6 +28,8 @@ const routers = router
   .get('/project', proController.get)
   .post('/project', proController.insert)
   .get('/project/user', proController.getUser)
+  //收集错误
+  .get('/error.gif', errorController.insert)
   
 
 module.exports = routers

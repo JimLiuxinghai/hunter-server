@@ -64,7 +64,7 @@ export default {
     }
     if (config.endTime) {
       param.push(`createTime <= ?`);
-      data.push(config.endTime)
+      data.push(config.endTime + ' 23:59:59')
     }
     if (config.projectId) {
       param.push(`projectId = ?`);
@@ -83,6 +83,7 @@ export default {
     }
     try {
       let sql = `SELECT COUNT(*) as count, createTime FROM error ${param} ${group}`;
+
       let result = await dbUtils.query(sql, data);
 
       return result;

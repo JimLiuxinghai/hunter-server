@@ -21,6 +21,7 @@ let query = function( sql, values ) {
           if ( err ) {
             reject( err )
           } else {
+            console.log(st.sql)
             let result = JSON.stringify(rows);
             resolve(JSON.parse(result));
           }

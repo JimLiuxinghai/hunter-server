@@ -103,7 +103,7 @@ const datatime = {
     minute = minute < 10 ? `0${minute}` : minute;
     let second = lastTime.getSeconds();
     second = second < 10 ? `0${second}` : second;
-    return `${lastYear}-${lastMonth}-${lastDay} ${hour}:${minute}:${second}`;
+    return `${lastYear}-${lastMonth}-${lastDay}`;
   },
 
 };
