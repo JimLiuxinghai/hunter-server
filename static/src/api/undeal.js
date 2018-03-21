@@ -8,4 +8,20 @@ const unDeal = async ( data ) => {
   return result
 }
 
-export  {unDeal}
+const addDeal = async ( data) =>{
+  let result = await Request.post({
+    url:'/api/insertDeal',
+    data: data
+  })
+  return result
+}
+
+const updateState = async ( data) =>{
+  let result = await Request.post({
+    url:'/api/updateState',
+    data: data
+  })
+  return result
+}
+
+export  {unDeal, addDeal,updateState}

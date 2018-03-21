@@ -16,7 +16,6 @@ class App extends React.Component {
   async componentDidMount() {
     let dealListData = await unDeal();
 
-    console.log(dealListData);
     this.setState({
       dealList: dealListData.data
     })
@@ -24,19 +23,27 @@ class App extends React.Component {
 
   render() {
     const columns = [{
-      title: 'id',
-      dataIndex: 'id'
+      title: '错误详情',
+      dataIndex: 'msg',
+      className: 'column-detail',
     }, {
-      title: '错误原因',
-      dataIndex: 'reason'
+      title: '页面地址',
+      dataIndex: 'targetUrl'
     }, {
-      title: '处理人',
-      dataIndex: 'user'
+      title: '错误级别',
+      dataIndex: 'level'
     }, {
-      title: '更新时间',
-      dataIndex: 'updatetime'
-    }
-    ];
+      title: '错误状态',
+      dataIndex: 'dealState'
+    }, {
+      title: '时间',
+      dataIndex: 'createTime'
+    }, {
+      title: 'UA',
+      dataIndex: 'ua',
+      className: 'column-ua'
+    }];
+
     return (
       <Layout>
         {/*面包屑导航*/}

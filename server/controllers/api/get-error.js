@@ -209,32 +209,22 @@ export default {
           ctx.body = data;
         }
     },
+  },
+
 
 
   /**
    * 更新处理状态
-   * @param   err_id 错误id （批量多条以逗号拼接）eg:2,3,5
+   * @param   err_id 错误id
    * @return  success : true 成功 null 失败
    */
   async updateState(ctx){
-	    let ids=ctx.query.err_id;
-      let result = {
-        success: false,
-        message: ''
-      }
-      let params={
-        id:ids.split((ids.indexOf(',')?',':'')),
-        state:ctx.query.state
-     };
-     try{
+	    let params = ctx.request.body;
+     try {
        let updateRes = await errorModal.updateState(params);
-       if(updateRes.changedRows>0){
-         result.success=true;
-       }else{
-         result.success=null;
-       }
-       ctx.body=result;
-     }catch(ex){
+       let data = Tips.ERR_OK;
+       ctx.body = data;
+     } catch(ex){
        let data = Tips.ERR_SYSTEM_ERROR;
        data.data = ex;
        ctx.body = data;

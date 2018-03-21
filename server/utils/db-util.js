@@ -23,6 +23,7 @@ let query = function( sql, values ) {
           } else {
             console.log(st.sql)
             let result = JSON.stringify(rows);
+            console.log('SUCCESS', result,'999999');
             resolve(JSON.parse(result));
           }
           connection.release()
