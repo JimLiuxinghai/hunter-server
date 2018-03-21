@@ -209,7 +209,6 @@ export default {
           ctx.body = data;
         }
     },
-  },
 
 
 
