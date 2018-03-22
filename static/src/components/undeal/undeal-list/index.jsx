@@ -31,6 +31,7 @@ class dealList extends React.Component {
       visible: false,
     });
   }
+
   handleSubmit(e){
     e.preventDefault();
     this.postPro(this.props.form.getFieldsValue());

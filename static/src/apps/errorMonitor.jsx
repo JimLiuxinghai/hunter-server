@@ -17,14 +17,14 @@ class App extends React.Component {
     stateType: "1"
   };
 
-  async getErrorByTime(param, formatStr) {
+  async getErrorByTime(param) {
     let resData = await errorByTime(param);
     let chartData = resData.data;
 
     chartData.map((item) => {
-      let date = new Date(item.createTime);
-      item.createTime = timeUtils.format(date, formatStr);
-      return item;
+      // let date = new Date(item.createTime);
+      // item.createTime = timeUtils.format(date, formatStr);
+      // return item;
     });
     this.setState({
       errorDataChart: chartData
@@ -56,14 +56,19 @@ class App extends React.Component {
   async getError(){
     let nowTime = timeUtils.getNowDatetime(),
       type = this.state.stateType,
-      formatStr = type == 3 ? 'yyyy-mm-dd hh:MM:ss' : 'hh:mm:ss',
+      // formatStr = type == 3 ? 'yyyy-mm-dd hh:MM:ss' : 'hh:mm:ss',
+      // config = {
+      //   startTime: this.switchDate(nowTime, type),
+      //   endTime: nowTime,
+      //   timeType: type == 3 ? 2 : 1,
+      // };
       config = {
-        startTime: this.switchDate(nowTime, type),
-        endTime: nowTime,
-        timeType: type == 3 ? 2 : 1,
+        now: nowTime,
+        type:type
       };
     console.log(this.state.stateType);
-    await this.getErrorByTime(config, formatStr);
+    // await this.getErrorByTime(config, formatStr);
+    await this.getErrorByTime(config);
     await this.getErrorList(config);
   };
   async componentDidMount() {
