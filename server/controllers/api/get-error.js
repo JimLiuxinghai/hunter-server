@@ -87,8 +87,9 @@ export default {
       
         let resData = []
         timeArr.forEach((time) => {
+            let timeStr = datetime.parseStampToFormat(time, 'hh:mm')
             let newData = {
-                time: time,
+                time: timeStr,
                 count: 0
             }
             proRes.forEach((item) => {
