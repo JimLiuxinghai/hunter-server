@@ -8,13 +8,28 @@ import userCode from '../../codes/user';
 
 const getUsers = (list) => {
     let users = []
+    let pages = []
+    let project = []
     list.forEach((item) => {
         if(users.indexOf(item.currentIp) == -1) {
             users.push(item.currentIp)
         }
+        if(pages.indexOf(item.targetUrl) == -1) {
+            pages.push(item.targetUrl)
+        }
+        if(project.indexOf(item.projectId) == -1) {
+            project.push(item.projectId)
+        }
+
     })
-    return users.length
+    return {
+      users: users.length,
+      pages: pages.length,
+      project: project.length
+    }
 }
+
+
 
 export default {
   /*
@@ -51,10 +66,9 @@ export default {
    method: get
    param = {
    projectId: '123' //项目id,
-   startTime: '2018-03-01 13:57', //开始时间
    endTime: '2018-03-01 13:57',   //结束时间
    dealState: 2                   //bug状态 1未处理 2已解决
-   timeType：1                    //1按分钟分组，2 按天分组
+   timeType：1                    //1 半小时; 2: 一小时
    }
    success = {
    count: 1          //bug数量
@@ -65,12 +79,34 @@ export default {
     let param = ctx.query;
     try {
       let proRes = await errorModal.getErrorByTime(param);
+      
+      let min = 0
+      param.timeType == 1 ? min = 5 : min = 10;
+      
+      let timeArr =  datetime.cutMin(param.endTime, 1, min)
+      
+        let resData = []
+        timeArr.forEach((time) => {
+            let newData = {
+                time: time,
+                count: 0
+            }
+            proRes.forEach((item) => {
+                let itemSecond = new Date(item.createTime).getTime()
+                let timeSecond = new Date(time).getTime()
+                if(itemSecond > timeSecond - min*60*1000 && itemSecond <= timeSecond) {
+                    newData.count += item.count
+                }
+            })
+            resData.push(newData)
+        })
       let data = Tips.ERR_OK;
-      data.data = proRes;
+      data.data = resData;
       ctx.body = data;
-    } catch (ex) {
+    } catch (e) {
+      
       let data = Tips.ERR_SYSTEM_ERROR;
-      data.data = ex;
+      data.data = e;
       ctx.body = data;
     }
   },
@@ -87,6 +123,7 @@ export default {
     let param = ctx.query;
     let dateArr = datetime.filterWeek([param.startTime, param.endTime])
     try {
+        param.endTime = param.endTime + ' 23:59:59'
         let errRes = await errorModal.getErrorByTime(param);
         let newData = [];
         dateArr.forEach((date) => {
@@ -127,10 +164,12 @@ export default {
      let param = ctx.query;
      try {
         let errRes = await errorModal.getError(param);
-        let users = getUsers(errRes.data)
+        let count = getUsers(errRes.data)
         let data = Tips.ERR_OK;
         data.data = {
-            users: users
+            users: count.users,
+            pages: count.pages,
+            project: count.project
         };
         ctx.body = data;
 
@@ -159,8 +198,8 @@ export default {
 		let image = fs.readFileSync(path.join(__dirname , '../../codes/error.gif'));
 		ctx.type = 'image/gif';
 		ctx.status = 200;
-        ctx.length = Buffer.byteLength(image);
-        ctx.body = new Buffer(image);
+    ctx.length = Buffer.byteLength(image);
+    ctx.body = new Buffer(image);
 	},
     /*
     * 查看错误处理是否存在

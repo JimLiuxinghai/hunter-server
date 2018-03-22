@@ -13,6 +13,8 @@ class App extends React.Component {
     state = {
         timeData: [],
         users: 0,
+        pages: 0,
+        project: 0,
         type: '1'
 
     }
@@ -30,12 +32,12 @@ class App extends React.Component {
         let userParam = {}
         let timeData = await errorByTime(timeParam)
         let userData = await errorUser()
-        console.log(userData.data)
+        
         this.setState({
             timeData: timeData.data,
-            users: userData.users
-        }, () => {
-            console.log(this.state)
+            users: userData.data.users,
+            pages: userData.data.pages,
+            project: userData.data.project,
         })
     }
     dealTime = (type, time) => {
@@ -79,13 +81,12 @@ class App extends React.Component {
     render() {
         return (
             <Layout>
-              {/*面包屑导航*/}
               <Breadcrumb style={{margin: '12px'}}>
                 <Breadcrumb.Item>概览</Breadcrumb.Item>
               </Breadcrumb>
               <div className="index">
                   <ScreenBox selectType= { this.state.type } switchTime={ this.switchType }></ScreenBox>
-                  <Charts timeData={this.state.timeData} user={this.state.users} />
+                  <Charts timeData={this.state.timeData} user={this.state.users} project={this.state.project} pages={this.state.pages}/>
               </div>
             </Layout>
             

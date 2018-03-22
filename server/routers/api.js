@@ -17,12 +17,15 @@ const routers = router
   .get('/getErrByDay', errorController.getErrCount)
   .get('/errorUser', errorController.errorUser)
   //错误处理
-  .get('/errorList', errorController.get)
-  .get('/errorByTime', errorController.getErrorByTime)
   .get('/getExistDeal',errorController.getExistDeal)
   .post('/insertDeal',errorController.insertDeal)
   .post('/updateState', errorController.updateState)
   .post('/updateReason',errorController.updateReason)
+
+  //实时监控
+  .get('/errorList', errorController.get)
+  .get('/errorByTime', errorController.getErrorByTime)
+  
   //项目管理
   .get('/project/name', proController.name)
   .get('/project', proController.get)

@@ -11,20 +11,31 @@ class Charts extends React.Component {
 	
     render() {
     	let data = this.props.timeData
-    	const cols = {
-    	          'count': {tickInterval: 20},
-    	        };
+   		console.log(data)
+   		const cols = {
+	        'time': {tickInterval: 5},
+	    };
 	    return (
 	    	<div className="chart">
-	    		<div className="user">
-	    			<span className="title">影响用户</span>
-	    			<span className="num">{this.props.user}</span>
+	    		<div className="info-wrapper">
+	    			<div className="info">
+	    				<span className="title">影响用户：</span>
+	    				<span className="num">{this.props.user}</span>
+	    			</div>
+	    			<div className="info">
+	    				<span className="title">影响页面：</span>
+	    				<span className="num">{this.props.pages}</span>
+	    			</div>
+	    			<div className="info">
+	    				<span className="title">影响项目：</span>
+	    				<span className="num">{this.props.project}</span>
+	    			</div>
 	    		</div>
-    			<Chart height={400} data={data} scale={cols} forceFit>
+    			<Chart height={400} data={data} forceFit>
     		       <Axis name="time" />
     		       <Axis name="count" />
     		       <Tooltip crosshairs={{type : "y"}}/>
-    		       <Geom type="interval" position="time*count" />
+    		       <Geom type="interval" position="time*count"  size='20' />
     		       <Geom type="line" position="time*count" size={2} />
     		       <Geom type='point' position="time*count" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
     		    </Chart>

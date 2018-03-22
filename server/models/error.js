@@ -57,14 +57,14 @@ export default {
   async getErrorByTime(config = {}){
     let param = [],
         data = [],
-        group = "GROUP BY  DATE_FORMAT(createTime,'%Y-%m-%d %h:%m')";
+        group = "GROUP BY  DATE_FORMAT(createTime,'%Y-%m-%d %h:%m:%s')";
     if (config.startTime) {
       param.push(`createTime >= ?`);
       data.push(config.startTime);
     }
     if (config.endTime) {
       param.push(`createTime <= ?`);
-      data.push(config.endTime + ' 23:59:59')
+      data.push(config.endTime)
     }
     if (config.projectId) {
       param.push(`projectId = ?`);
