@@ -82,10 +82,11 @@ export default {
       
       let min = 0
       param.timeType == 1 ? min = 5 : min = 10;
-      
+
       let timeArr =  datetime.cutMin(param.endTime, 1, min)
-      
+
         let resData = []
+
         timeArr.forEach((time) => {
             let timeStr = datetime.parseStampToFormat(time, 'hh:mm')
             let newData = {
