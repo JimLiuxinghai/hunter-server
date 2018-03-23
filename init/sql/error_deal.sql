@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2018-02-26 15:31:57
+Date: 2018-03-23 18:31:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,9 +20,10 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `error_deal`;
 CREATE TABLE `error_deal` (
-  `errorId` int(20) NOT NULL COMMENT '错误id',
+  `id` int(20) NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `key` varchar(255) DEFAULT NULL COMMENT '错误key：对error.msg md5加密',
   `user` varchar(255) DEFAULT NULL COMMENT '处理人',
   `reason` text COMMENT '错误原因',
-  `updatetime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`errorId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `updatetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;

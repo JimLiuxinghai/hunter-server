@@ -14,27 +14,21 @@ class screenBox extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return !(nextProps.selectType == this.props.selectType)
   }
-  onTimeChange(value, dateString){
-    console.log('From: ', dateString[0], ', to: ', dateString[1]);
-  }
+
   onRadioChange(e){
     this.props.timeType(e.target.value);
   }
  
   render() {
     let type = this.props.selectType;
+
     return (
       <div className="type-wrapper">
         <Row>
           <RadioGroup defaultValue={type} size="middle" onChange={this.onRadioChange.bind(this)}>
-            <RadioButton value="1">最近1小时</RadioButton>
-            <RadioButton value="2">今天</RadioButton>
-            <RadioButton value="3">7天</RadioButton>
+            <RadioButton value="1">30分钟</RadioButton>
+            <RadioButton value="2">1小时</RadioButton>
           </RadioGroup>
-          <span className="date-picker">
-            <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" onChange={this.onTimeChange}/>
-          </span>
-
         </Row>
       </div>
 

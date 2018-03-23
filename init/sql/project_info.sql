@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2018-02-27 10:26:39
+Date: 2018-03-23 18:31:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,8 +21,9 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `project_info`;
 CREATE TABLE `project_info` (
   `project` varchar(255) DEFAULT NULL COMMENT '项目名称',
-  `projectId` varchar(255) DEFAULT NULL COMMENT '项目编号',
+  `projectId` varchar(255) NOT NULL COMMENT '项目编号',
   `projectType` varchar(255) DEFAULT NULL COMMENT '项目类型：Angular, AngularJS, Vue, React, Js',
   `projectInfo` varchar(255) DEFAULT NULL COMMENT '项目简介',
-  `updatetime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `updatetime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`projectId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

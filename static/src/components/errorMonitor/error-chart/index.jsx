@@ -12,7 +12,6 @@ class errorCharts extends React.Component {
   render() {
     const dv = this.props.data;
     const cols = this.props.cols;
-
     return (
       <div className="errorChart-wrapper">
         <Row>
@@ -22,11 +21,11 @@ class errorCharts extends React.Component {
             title="实时监控"
           >
             <Chart height={400} data={dv} forceFit>
-              <Axis name="createTime"/>
+              <Axis name="time"/>
               <Axis name="count"/>
               <Tooltip crosshairs={{type: "y"}}/>
 
-              <Geom type="interval" position="createTime*count"/>
+              <Geom type="interval" position="time*count"/>
             </Chart>
           </Card>
         </Row>

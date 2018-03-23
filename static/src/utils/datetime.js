@@ -105,6 +105,27 @@ const datatime = {
     second = second < 10 ? `0${second}` : second;
     return `${lastYear}-${lastMonth}-${lastDay}`;
   },
+  /*
+  * 时间切割为分钟段
+  * @param time 
+  * @param type 1:向前,2:向后
+  * @param min  //分钟
+  */
+  cutMin: function (time, type, min) {
+    let timestrp = new Date(time).getTime()
+    console.log(timestrp)
+    let duration = 0
+    type == 1 ? duration = -1*60*1000*min : duration = 1*60*1000*min
+    let timeArr = []
+    for(let i= 0; i<=5; i++) {
+      let time =  datatime.parseStampToFormat(timestrp + i*duration, 'YYYY-MM-DD hh:mm:ss')
+      timeArr.push(time)
+    }
+    if(type == 1) {
+      timeArr = timeArr.reverse()
+    }
+    return timeArr
+  }
 
 };
 

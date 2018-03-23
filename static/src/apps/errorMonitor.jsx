@@ -20,12 +20,6 @@ class App extends React.Component {
   async getErrorByTime(param) {
     let resData = await errorByTime(param);
     let chartData = resData.data;
-
-    chartData.map((item) => {
-      // let date = new Date(item.createTime);
-      // item.createTime = timeUtils.format(date, formatStr);
-      // return item;
-    });
     this.setState({
       errorDataChart: chartData
     });
@@ -37,55 +31,40 @@ class App extends React.Component {
       errorList: errorListData.data.data
     })
   }
-
-  switchDate = (date, type) => {
-    let dateStr = '';
-    switch (type) {
-      case "1":
-        dateStr = timeUtils.switch(date, 0.042);
-        break;
-      case "2":
-        dateStr = timeUtils.switch(date, 1);
-        break;
-      case "3":
-        dateStr = timeUtils.switch(date, 7);
-        break;
-    }
-    return dateStr;
-  };
   async getError(){
+    let min = this.state.stateType == 1 ? 5 : 10;
+    
     let nowTime = timeUtils.getNowDatetime(),
-      type = this.state.stateType,
-      // formatStr = type == 3 ? 'yyyy-mm-dd hh:MM:ss' : 'hh:mm:ss',
-      // config = {
-      //   startTime: this.switchDate(nowTime, type),
-      //   endTime: nowTime,
-      //   timeType: type == 3 ? 2 : 1,
-      // };
-      config = {
-        now: nowTime,
-        type:type
-      };
-    console.log(this.state.stateType);
-    // await this.getErrorByTime(config, formatStr);
+        startTime = timeUtils.cutMin(nowTime, 1, min)[0],
+        config = {
+            startTime: startTime,
+            endTime: nowTime,
+            timeType: this.state.stateType
+        };
+    console.log(111111)
     await this.getErrorByTime(config);
     await this.getErrorList(config);
-  };
+  }
   async componentDidMount() {
     this.getError();
-    let timer = setInterval(async () => {
-      this.getError();
-    }, 10000000);
+    this.interval();
   }
-
+  interval () {
+    clearInterval(timer)
+    let time = this.state.stateType == 1 ? 1000*5*60 : 1000*10*60
+    let timer = setInterval(async () => {
+        this.getError();
+    }, time)
+  }
   timeType = (newType) => {
     this.setState({
       stateType: newType
-    },()=>{
-      this.getError();
+    }, async () => {
+        await this.getError();
+        this.interval();
     });
 
-  };
+  }
 
   render() {
     const columns = [{
@@ -111,7 +90,7 @@ class App extends React.Component {
     }];
 // 定义度量
     const cols = {
-      'createTime': {tickInterval: 20},
+      'time': {tickInterval: 20},
     };
     return (
       <Layout>

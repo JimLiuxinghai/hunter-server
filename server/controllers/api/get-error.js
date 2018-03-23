@@ -66,6 +66,7 @@ export default {
    method: get
    param = {
    projectId: '123' //项目id,
+   startTime: '2018-03-01 13:30'  //开始时间
    endTime: '2018-03-01 13:57',   //结束时间
    dealState: 2                   //bug状态 1未处理 2已解决
    timeType：1                    //1 半小时; 2: 一小时
@@ -78,12 +79,12 @@ export default {
   async getErrorByTime(ctx) {
     let param = ctx.query;
     try {
-      let proRes = await errorModal.getErrorByTime(param);
+        let proRes = await errorModal.getErrorByTime(param);
       
-      let min = 0
-      param.timeType == 1 ? min = 5 : min = 10;
+        let min = 0
+        param.timeType == 1 ? min = 5 : min = 10;
 
-      let timeArr =  datetime.cutMin(param.endTime, 1, min)
+        let timeArr =  datetime.cutMin(param.endTime, 1, min)
 
         let resData = []
 
@@ -102,14 +103,14 @@ export default {
             })
             resData.push(newData)
         })
-      let data = Tips.ERR_OK;
-      data.data = resData;
-      ctx.body = data;
+        let data = Tips.ERR_OK;
+        data.data = resData;
+        ctx.body = data;
     } catch (e) {
       
-      let data = Tips.ERR_SYSTEM_ERROR;
-      data.data = e;
-      ctx.body = data;
+        let data = Tips.ERR_SYSTEM_ERROR;
+        data.data = e;
+        ctx.body = data;
     }
   },
   /*
@@ -192,8 +193,11 @@ export default {
 		errorList.forEach(async (error) => {
 			let parseError = JSON.parse(error);
 			parseError.ua = ua;
+            if(parseError.ext) {
+                parseError.msg = error.ext.stack
+            }
 			parseError.currentIp = currentIp;
-      parseError.dealState = 1;
+            parseError.dealState = 1;
 			let modalRes = await errorModal.insertError(parseError);
 		});
 
