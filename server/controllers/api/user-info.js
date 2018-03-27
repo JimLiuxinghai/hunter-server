@@ -58,7 +58,6 @@ module.exports = {
     }
 
     let existOne  = await userInfoService.getExistOne(formData)
-    console.log( existOne )
 
     if ( existOne  ) {
       if ( existOne .name === formData.userName ) {
@@ -79,8 +78,6 @@ module.exports = {
       name: formData.userName,
       userid: utils.util.md5(formData.name + formData.email)
     })
-
-    console.log( userResult )
 
     if ( userResult && userResult.insertId * 1 > 0) {
       result.success = true

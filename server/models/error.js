@@ -105,6 +105,7 @@ export default {
       data.push(JSON.stringify(config[item]));
     });
     let sql = `insert into error (${keys.join(',')}) values (${data.join(',')})`;
+    console.log(sql)
     let result = await dbUtils.query(sql, data);
     return result
   },

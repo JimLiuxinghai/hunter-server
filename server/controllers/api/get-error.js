@@ -186,19 +186,28 @@ export default {
 	async insert(ctx) {
 		let ua = ctx.request.header['user-agent'];
 		let errorList = ctx.query.err_msg.split('|');
+
 		let result = [];
 		const allip = ctx.ips.length > 0 ? ctx.ips[ctx.ips.length - 1] : ctx.ip;
 		let ips = allip.split(':');
 		const currentIp = ips[ips.length - 1];
 		errorList.forEach(async (error) => {
-			let parseError = JSON.parse(error);
-			parseError.ua = ua;
-            if(parseError.ext) {
-                parseError.msg = error.ext.stack
-            }
-			parseError.currentIp = currentIp;
-            parseError.dealState = 1;
-			let modalRes = await errorModal.insertError(parseError);
+      try {
+              let parseError = JSON.parse(error);
+
+              parseError.ua = ua;
+              if(parseError.ext) {
+                  parseError.msg = parseError.ext.stack
+              }
+              parseError.currentIp = currentIp;
+                    parseError.dealState = 1;
+                    console.log(parseError)
+              let modalRes = await errorModal.insertError(parseError);
+      }
+      catch (e) {
+        console.log(e)
+      }
+			
 		});
 
 		let image = fs.readFileSync(path.join(__dirname , '../../codes/error.gif'));
