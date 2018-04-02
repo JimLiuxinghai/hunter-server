@@ -14,20 +14,16 @@ class errorCharts extends React.Component {
     const cols = this.props.cols;
     return (
       <div className="errorChart-wrapper">
+        <div className="title">
+          <span>bug 监控</span>
+        </div>
         <Row>
-          <Card
-            style={{marginTop: 16}}
-            type="inner"
-            title="实时监控"
-          >
-            <Chart height={400} data={dv} forceFit>
-              <Axis name="time"/>
-              <Axis name="count"/>
-              <Tooltip crosshairs={{type: "y"}}/>
-
-              <Geom type="interval" position="time*count"/>
-            </Chart>
-          </Card>
+          <Chart height={400} data={dv} forceFit>
+            <Axis name="time"/>
+            <Axis name="count"/>
+            <Tooltip crosshairs={{type: "y"}}/>
+            <Geom type="interval" position="time*count"/>
+          </Chart>
         </Row>
       </div>
 

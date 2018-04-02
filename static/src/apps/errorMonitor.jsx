@@ -31,37 +31,41 @@ class App extends React.Component {
       errorList: errorListData.data.data
     })
   }
-  async getError(){
+
+  async getError() {
     let min = this.state.stateType == 1 ? 5 : 10;
-    
+
     let nowTime = timeUtils.getNowDatetime(),
-        startTime = timeUtils.cutMin(nowTime, 1, min)[0],
-        config = {
-            startTime: startTime,
-            endTime: nowTime,
-            timeType: this.state.stateType
-        };
+      startTime = timeUtils.cutMin(nowTime, 1, min)[0],
+      config = {
+        startTime: startTime,
+        endTime: nowTime,
+        timeType: this.state.stateType
+      };
     console.log(111111)
     await this.getErrorByTime(config);
     await this.getErrorList(config);
   }
+
   async componentDidMount() {
     this.getError();
     this.interval();
   }
-  interval () {
+
+  interval() {
     clearInterval(timer)
-    let time = this.state.stateType == 1 ? 1000*5*60 : 1000*10*60
+    let time = this.state.stateType == 1 ? 1000 * 5 * 60 : 1000 * 10 * 60
     let timer = setInterval(async () => {
-        this.getError();
+      this.getError();
     }, time)
   }
+
   timeType = (newType) => {
     this.setState({
       stateType: newType
     }, async () => {
-        await this.getError();
-        this.interval();
+      await this.getError();
+      this.interval();
     });
 
   }
@@ -95,12 +99,14 @@ class App extends React.Component {
     return (
       <Layout>
         {/*面包屑导航*/}
-        <Breadcrumb style={{margin: '12px'}}>
+        <Breadcrumb>
           <Breadcrumb.Item>实时监控</Breadcrumb.Item>
         </Breadcrumb>
-        <ScreenBox timeType={this.timeType} selectType={this.state.stateType}></ScreenBox>
-        <ErrorCharts data={this.state.errorDataChart} cols={cols}/>
-        <ErrorList columns={columns} data={this.state.errorList}/>
+        <div className="main-content">
+          <ScreenBox timeType={this.timeType} selectType={this.state.stateType}></ScreenBox>
+          <ErrorCharts data={this.state.errorDataChart} cols={cols}/>
+          <ErrorList columns={columns} data={this.state.errorList}/>
+        </div>
       </Layout>
     )
   }

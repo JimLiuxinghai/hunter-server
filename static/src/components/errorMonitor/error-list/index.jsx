@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Button, Card, Table  } from 'antd';
+import { Row, Col, Button, Card, Table, Modal } from 'antd';
 import './index.less'
 
 class errorList extends React.Component {
@@ -13,19 +13,16 @@ class errorList extends React.Component {
 
     return (
       <div className="errorList-wrapper">
+        <div className="title">
+          <span>异常内容</span>
+        </div>
         <Row>
-            <Card
-              style={{ marginTop: 16 }}
-              type="inner"
-              title="异常内容"
-            >
               <Table
                 columns={columns}
                 dataSource={data}
                 scroll={{ x: 2000 }}
                 bordered
               />
-            </Card>
         </Row>
       </div>
     )

@@ -73,10 +73,12 @@ class App extends React.Component {
 		return (
 			<Layout>
 				{/*面包屑导航*/}
-				<Breadcrumb style={{ margin: '12px' }}>
+				<Breadcrumb>
 				  <Breadcrumb.Item>项目管理</Breadcrumb.Item>
 				</Breadcrumb>
+        <div className="main-content">
 				{ showPage }
+        </div>
 			</Layout>
 		)
 	}
