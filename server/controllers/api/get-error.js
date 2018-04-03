@@ -243,20 +243,17 @@ export default {
           success: false,
           message: '',
           data: null
-        }
-        let queryObj=ctx.query;
-        let param={
-          key:queryObj.err_msg,
-          user:ctx.session.userName||''
+        };
+        let queryObj = ctx.request.body;
+        let param = {
+          key:queryObj.key,
+          user:ctx.user || '',
+          reason:queryObj.reason
         };
         try{
           let modalRes = await errorModal.insertDeal(param);
-          if ( modalRes && modalRes.insertId * 1 > 0) {
-            result.success = true
-          } else {
-            result.success = false;
-          }
-          ctx.body=result;
+          let data = Tips.ERR_OK;
+          ctx.body = data;
         }catch (ex){
           let data = Tips.ERR_SYSTEM_ERROR;
           data.data = ex;
@@ -273,15 +270,15 @@ export default {
    */
   async updateState(ctx){
 	    let params = ctx.request.body;
-     try {
-       let updateRes = await errorModal.updateState(params);
-       let data = Tips.ERR_OK;
-       ctx.body = data;
-     } catch(ex){
-       let data = Tips.ERR_SYSTEM_ERROR;
-       data.data = ex;
-       ctx.body = data;
-     }
+      try {
+        let updateRes = await errorModal.updateState(params);
+        let data = Tips.ERR_OK;
+        ctx.body = data;
+      } catch(ex){
+        let data = Tips.ERR_SYSTEM_ERROR;
+        data.data = ex;
+        ctx.body = data;
+      }
   },
   /**
    * 更新处理原因
