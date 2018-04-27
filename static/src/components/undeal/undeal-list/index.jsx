@@ -10,17 +10,24 @@ class dealList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      visible: false,
+      user: '',
+      reason:''
     }
   }
 
   showModal(e) {
     this.setState({
       visible: true,
+      user: '',
+      reason:''
     });
+    this.reason = '';
+    this.user = '';
     this.msg = e.msg;
     this.error_id = e.id;
   }
+
   handleOk () {
     this.setState({
       visible: false,
@@ -34,7 +41,25 @@ class dealList extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    this.postPro(this.props.form.getFieldsValue());
+    let param = {
+      user: this.state.user,
+      reason: this.state.reason,
+    };
+    this.postPro(param);
+  }
+
+  changeUser(e){
+    let value = e.target.value;
+    this.setState({
+      user: value
+    })
+  }
+
+  changeReason(e){
+    let value = e.target.value;
+    this.setState({
+      reason: value
+    })
   }
 
   async postPro (param) {
@@ -47,10 +72,12 @@ class dealList extends React.Component {
       };
       let updateData = await updateState(updateParam);
       if(updateData.status.code === 200){
-        console.log('8888888888');
         this.setState({
           visible: false,
+          user: '',
+          reason:''
         });
+        this.props.fatherHandleClick(true)
       }
     }
   }
@@ -58,7 +85,6 @@ class dealList extends React.Component {
   render() {
     const columns = this.props.columns;
     const data = this.props.data;
-    const  getFieldProps  = this.props.form.getFieldProps ;
     let msg, error_id;
     return (
       <div className="undealList-wrapper">
@@ -74,7 +100,6 @@ class dealList extends React.Component {
                   return {
                     onClick: () => {
                       this.showModal(record,index);
-                      getFieldProps.key = record.msg;
                     },
                   };
                 }}
@@ -83,28 +108,12 @@ class dealList extends React.Component {
         </Row>
 
         <Modal title = "查看详情" visible = {this.state.visible} onOk={this.handleOk.bind(this)} onCancel={this.handleCancel.bind(this)} footer={[]}>
-          <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
-            <FormItem>
-              <p className="ant-form-text" id="userName" name="userName" >{this.msg}</p>
-            </FormItem>
-            <FormItem
-              id="control-input"
-              label="处理人"
-              labelCol={{ span: 6 }}
-              wrapperCol={{ span: 14 }}>
-              <Input id="control-input" placeholder="Please enter..." {...getFieldProps('user')}/>
-            </FormItem>
-            <FormItem
-              id="control"
-              label="处理原因"
-              labelCol={{ span: 6 }}
-              wrapperCol={{ span: 14 }}>
-              <Input id="control" placeholder="Please enter..." {...getFieldProps('reason')}/>
-            </FormItem>
-            <FormItem wrapperCol={{ span: 16, offset: 6 }} style={{ marginTop: 24 }}>
-              <Button type="primary" htmlType="submit">确定</Button>
-            </FormItem>
-          </Form>
+          <div className="showInput">
+            <p className="ant-form-text" id="userName" name="userName" >{this.msg}</p>
+            <Input placeholder="处理人" className="input"  onInput ={this.changeUser.bind(this)}/>
+            <Input placeholder="处理原因" className="input"  onInput ={this.changeReason.bind(this)}/>
+            <Button type="primary" onClick = {this.handleSubmit.bind(this)}>确定</Button>
+          </div>
         </Modal>
       </div>
     )

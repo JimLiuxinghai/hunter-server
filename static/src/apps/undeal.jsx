@@ -13,6 +13,12 @@ class App extends React.Component {
     dealList: []
   };
 
+  fatherHandleClick(data) {
+    if(data === true) {
+      this.componentDidMount()
+    }
+  }
+
   async componentDidMount() {
     let dealListData = await unDeal();
 
@@ -50,7 +56,7 @@ class App extends React.Component {
         <Breadcrumb style={{margin: '12px'}}>
           <Breadcrumb.Item>未处理页面</Breadcrumb.Item>
         </Breadcrumb>
-        <DealList columns={columns} data={this.state.dealList}/>
+        <DealList columns={columns} data={this.state.dealList} fatherHandleClick = { this.fatherHandleClick.bind(this) }/>
       </Layout>
     )
   }

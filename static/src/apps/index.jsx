@@ -81,10 +81,10 @@ class App extends React.Component {
     render() {
         return (
             <Layout>
-              <Breadcrumb style={{margin: '12px'}}>
+              <Breadcrumb>
                 <Breadcrumb.Item>概览</Breadcrumb.Item>
               </Breadcrumb>
-              <div className="index">
+              <div className="main-content">
                   <ScreenBox selectType= { this.state.type } switchTime={ this.switchType }></ScreenBox>
                   <Charts timeData={this.state.timeData} user={this.state.users} project={this.state.project} pages={this.state.pages}/>
               </div>
