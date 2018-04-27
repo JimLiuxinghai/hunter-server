@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2018-03-23 18:31:11
+Date: 2018-04-18 17:56:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,4 +38,4 @@ CREATE TABLE `error` (
   `dealState` varchar(2) DEFAULT NULL COMMENT '错误状态 1未处理 2已解决',
   `createTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`,`projectId`)
-) ENGINE=InnoDB AUTO_INCREMENT=219 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=228 DEFAULT CHARSET=utf8;

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2018-03-23 18:31:16
+Date: 2018-04-18 17:56:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,4 +26,4 @@ CREATE TABLE `error_deal` (
   `reason` text COMMENT '错误原因',
   `updatetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
