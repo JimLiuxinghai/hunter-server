@@ -19,17 +19,17 @@ class Charts extends React.Component {
 	    	<div className="chart">
 	    		<div className="info-wrapper">
 	    			<div className="info">
-              <span className="point"></span>
+              			<span className="point"></span>
 	    				<span className="title">影响用户：</span>
 	    				<span className="num">{this.props.user}</span>
 	    			</div>
 	    			<div className="info">
-              <span className="point"></span>
+              			<span className="point"></span>
 	    				<span className="title">影响页面：</span>
 	    				<span className="num">{this.props.pages}</span>
 	    			</div>
 	    			<div className="info">
-              <span className="point"></span>
+              			<span className="point"></span>
 	    				<span className="title">影响项目：</span>
 	    				<span className="num">{this.props.project}</span>
 	    			</div>
