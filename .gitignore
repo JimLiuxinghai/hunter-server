@@ -5,5 +5,4 @@ static/output/dist/
 static/output/upload/
 npm-debug.log
 npm-debug.log.*
-config/*
 sftp-config.json
