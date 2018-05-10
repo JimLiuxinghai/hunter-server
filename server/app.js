@@ -10,7 +10,7 @@ import MysqlStore from 'koa-mysql-session'
 
 import config  from './../config/env/config'
 import routers from './routers/index'
-const setRouters = require('./routerLoader')
+//const setRouters = require('./routerLoader')
 const app = new Koa()
 
 // session存储配置
