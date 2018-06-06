@@ -76,9 +76,9 @@ class App extends React.Component {
 				<Breadcrumb>
 				  <Breadcrumb.Item>项目管理</Breadcrumb.Item>
 				</Breadcrumb>
-        <div className="main-content">
-				{ showPage }
-        </div>
+		        <div className="main-content">
+						{ showPage }
+		        </div>
 			</Layout>
 		)
 	}

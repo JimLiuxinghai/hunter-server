@@ -2,7 +2,7 @@ import React from 'react'
 import './index.less'
 import PropTypes from 'prop-types'
 import Type from './type'
-import { Row, Col, Button, Input  } from 'antd';
+import { Row, Col, Button, Input, Select } from 'antd';
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 import { xonokai } from 'react-syntax-highlighter/styles/prism';
 import typeData from './assest/type.json'

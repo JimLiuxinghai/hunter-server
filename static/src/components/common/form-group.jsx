@@ -13,7 +13,7 @@ class FormGroup extends React.Component {
                 <TabPane tab="登录" key="1">
                     <SignInForm />
                 </TabPane>
-                <TabPane tab="注册" key="2">
+                <TabPane style= {{display: "none"}} tab="注册" key="2">
                     <SignUpForm />
                 </TabPane>
             </Tabs>
