@@ -5,7 +5,7 @@ server for hunter
 
 ## 初始化数据库
 
-1.config/development.js中配置数据库信息
+1.添加  `config/env/development.js`, 配置数据库信息
 
 2. `npm run init_sql`
 
