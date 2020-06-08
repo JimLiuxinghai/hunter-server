@@ -1,5 +1,5 @@
 module.exports = async ( ctx ) => {
-  const title = 'home';
+  const title = '概览';
   const userName = ctx.session.userName;
   const rName='index';
   await ctx.render('index', {

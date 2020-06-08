@@ -4,10 +4,10 @@ export default {
   port: port,
   database: {
     DATABASE: 'hunter',
-    USERNAME: 'join_web',
-    PASSWORD: 'mysql_joinwisdom',
+    USERNAME: 'username',
+    PASSWORD: 'password',
     PORT: '3306',
-    HOST: '10.6.5.137',
+    HOST: '127.0.0.1',
     dateStrings: 'DATE'
   }
 }

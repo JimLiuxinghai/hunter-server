@@ -6,3 +6,5 @@ static/output/upload/
 npm-debug.log
 npm-debug.log.*
 sftp-config.json
+.vscode/
+config/env/development.js

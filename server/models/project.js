@@ -4,12 +4,27 @@ export default {
 		let param = [];
 		let data = [];
 		if(config.projectId) {
-			param.push(`where projectId = ?`)
+			param.push(`where projectId in (?)`)
 			data.push(config.projectId)
 		}
+		
 		param = param.join(' ');
 		let sql = `select * from project_info ${param}`
 		let result = await dbUtils.query( sql, data )
+		return result
+	},
+	//根据用户查询project
+	async getMap (config = {}) {
+		let param = []
+		let data = []
+		if(config.userid) {
+			param.push(`where userid = ?`)
+			data.push(config.userid)
+		}
+		param = param.join(' ');
+		let sql = `select * from user_pro_map ${param}`
+		let result = await dbUtils.query( sql, data )
+		
 		return result
 	},
 	//插入project

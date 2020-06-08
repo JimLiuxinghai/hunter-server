@@ -21,6 +21,8 @@ const routers = router
   .post('/insertDeal',errorController.insertDeal)
   .post('/updateState', errorController.updateState)
   .post('/updateReason',errorController.updateReason)
+  //错误详情
+  .get('/getErrDetail', errorController.getErrDetail)
 
   //实时监控
   .get('/errorList', errorController.get)

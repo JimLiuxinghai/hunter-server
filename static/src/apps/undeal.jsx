@@ -53,7 +53,7 @@ class App extends React.Component {
     return (
       <Layout>
         {/*面包屑导航*/}
-        <Breadcrumb style={{margin: '12px'}}>
+        <Breadcrumb>
           <Breadcrumb.Item>未处理页面</Breadcrumb.Item>
         </Breadcrumb>
         <DealList columns={columns} data={this.state.dealList} fatherHandleClick = { this.fatherHandleClick.bind(this) }/>

@@ -97,7 +97,6 @@ module.exports = {
     let isLogin = session.isLogin
     let userName = session.userName
 
-    console.log( 'session=', session )
 
     let result = {
       success: false,

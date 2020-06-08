@@ -102,12 +102,28 @@ export default {
 
     keys.forEach((item) => {
       values.push('?');
-      data.push(JSON.stringify(config[item]));
+      data.push(config[item] ? JSON.stringify(config[item]) : 0);
     });
     let sql = `insert into error (${keys.join(',')}) values (${data.join(',')})`;
     console.log(sql)
     let result = await dbUtils.query(sql, data);
     return result
+  },
+  /**
+   * errorDetail
+   * @param {*} config = {
+   *    id
+   * } 
+   */
+  async errorDetail (config = {}) {
+    let param = [`id = ?`]
+    let data = [config.id];
+    if (param.length > 0) {
+      param = param.join(' and ');
+      param = 'where ' + param;
+    }
+    let sql = `select * from error ${param}`;
+    let result = await dbUtils.query(sql, data);
   },
   /**
    * 获取未处理错误

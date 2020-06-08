@@ -6,7 +6,15 @@ import { util } from '../../utils/util';
 export default {
 	async get (ctx) {
 		let param = ctx.query;
+		let userId = ctx.session.userid
+		
 		try {
+			let proMap = await projectModal.getMap({userid: userId})
+			let projectid = []
+			proMap.forEach((pro) => {
+				projectid.push(pro.projectId)
+			})
+			param.projectId = projectid
 			let proRes = await projectModal.getPro(param);
 			let data = Tips.ERR_OK;
 			data.data = proRes;

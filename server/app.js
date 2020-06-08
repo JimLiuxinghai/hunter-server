@@ -5,8 +5,9 @@ import views from 'koa-views'
 import koaStatic from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 import koaLogger from 'koa-logger'
-import session from 'koa-session-minimal'
-import MysqlStore from 'koa-mysql-session'
+
+import session from 'koa-generic-session';
+import redisStore from 'koa-redis';
 
 import config  from './../config/env/config'
 import routers from './routers/index'
@@ -36,10 +37,18 @@ let cookie = {
 }
 
 // 配置session中间件
+// app.use(session({
+//   key: 'USER_SID',
+//   store: new MysqlStore(sessionMysqlConfig),
+//   cookie: cookie
+// }))
 app.use(session({
-  key: 'USER_SID',
-  store: new MysqlStore(sessionMysqlConfig),
-  cookie: cookie
+    key: '_S_I',
+    // prefix: ENV_CONFIG.secretKey,
+    store: redisStore(config.redis), //redis 共享session
+    cookie: {
+      signed: false
+    }
 }))
 
 // 配置控制台日志中间件
