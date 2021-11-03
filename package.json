@@ -39,7 +39,7 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-syntax-highlighter": "^7.0.1",
-    "validator": "^6.2.0",
+    "validator": "^13.7.0",
     "whatwg-fetch": "^2.0.1",
     "source-map": "^0.5.6"
   },
